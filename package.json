@@ -22,7 +22,7 @@
     "@llm-operator-types/file-manager": "git+ssh://git@github.com/llm-operator/file-manager.git#v0.57.0",
     "@llm-operator-types/inference-manager": "git+ssh://git@github.com/llm-operator/inference-manager.git#v0.266.0",
     "@llm-operator-types/job-manager": "git+ssh://git@github.com/llm-operator/job-manager.git#v0.188.0",
-    "@llm-operator-types/model-manager": "git+ssh://git@github.com/llm-operator/model-manager.git#v0.94.0",
+    "@llm-operator-types/model-manager": "git+http://git@github.com/llm-operator/model-manager.git#v0.94.0",
     "@llm-operator-types/rbac-manager": "git+ssh://git@github.com/llm-operator/rbac-manager.git#v0.91.0",
     "@llm-operator-types/user-manager": "git+ssh://git@github.com/llm-operator/user-manager.git#v0.78.0",
     "@llm-operator-types/vector-store-manager": "git+ssh://git@github.com/llm-operator/vector-store-manager.git#v0.37.0"

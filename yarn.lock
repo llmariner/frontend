@@ -18,9 +18,9 @@
   version "1.0.0"
   resolved "git+ssh://git@github.com/llm-operator/job-manager.git#f0908d59b35817ea1dede87cf38747617f1a5136"
 
-"@llm-operator-types/model-manager@git+ssh://git@github.com/llm-operator/model-manager.git#v0.94.0":
+"@llm-operator-types/model-manager@git+http://git@github.com/llm-operator/model-manager.git#v0.94.0":
   version "1.0.0"
-  resolved "git+ssh://git@github.com/llm-operator/model-manager.git#af2122040c35ae452cccb77806cb14d9729d7315"
+  resolved "git+http://git@github.com/llm-operator/model-manager.git#af2122040c35ae452cccb77806cb14d9729d7315"
 
 "@llm-operator-types/rbac-manager@git+ssh://git@github.com/llm-operator/rbac-manager.git#v0.91.0":
   version "1.0.0"
