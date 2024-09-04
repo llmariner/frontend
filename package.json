@@ -18,13 +18,13 @@
   "homepage": "https://github.com/llm-operator/frontend#readme",
   "dependencies": {},
   "devDependencies": {
-    "@llm-operator-types/cluster-manager": "git+https://github.com/llm-operator/cluster-manager.git#v0.15.0",
-    "@llm-operator-types/file-manager": "git+https://github.com/llm-operator/file-manager.git#v0.57.0",
-    "@llm-operator-types/inference-manager": "git+https://github.com/llm-operator/inference-manager.git#v0.266.0",
-    "@llm-operator-types/job-manager": "git+https://github.com/llm-operator/job-manager.git#v0.188.0",
-    "@llm-operator-types/model-manager": "git+https://github.com/llm-operator/model-manager.git#v0.91.0",
-    "@llm-operator-types/rbac-manager": "git+https://github.com/llm-operator/rbac-manager.git#v0.91.0",
-    "@llm-operator-types/user-manager": "git+https://github.com/llm-operator/user-manager.git#v0.78.0",
-    "@llm-operator-types/vector-store-manager": "git+https://github.com/llm-operator/vector-store-manager.git#v0.37.0"
+    "@llm-operator-types/cluster-manager": "git+https://git@github.com/llm-operator/cluster-manager.git#v0.15.0",
+    "@llm-operator-types/file-manager": "git+https://git@github.com/llm-operator/file-manager.git#v0.57.0",
+    "@llm-operator-types/inference-manager": "git+https://git@github.com/llm-operator/inference-manager.git#v0.266.0",
+    "@llm-operator-types/job-manager": "git+https://git@github.com/llm-operator/job-manager.git#v0.188.0",
+    "@llm-operator-types/model-manager": "git+https://git@github.com/llm-operator/model-manager.git#v0.91.0",
+    "@llm-operator-types/rbac-manager": "git+https://git@github.com/llm-operator/rbac-manager.git#v0.91.0",
+    "@llm-operator-types/user-manager": "git+https://git@github.com/llm-operator/user-manager.git#v0.78.0",
+    "@llm-operator-types/vector-store-manager": "git+https://git@github.com/llm-operator/vector-store-manager.git#v0.37.0"
   }
 }
