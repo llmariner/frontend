@@ -2,34 +2,34 @@
 # yarn lockfile v1
 
 
-"@llm-operator-types/cluster-manager@git+https://github.com/llm-operator/cluster-manager.git#v0.15.0":
+"@llm-operator-types/cluster-manager@git+ssh://git@github.com/llm-operator/cluster-manager.git#v0.15.0":
   version "1.0.0"
-  resolved "git+https://github.com/llm-operator/cluster-manager.git#28c34e491b59dfbb60acfd760e2b9ca01cd856b0"
+  resolved "git+ssh://git@github.com/llm-operator/cluster-manager.git#28c34e491b59dfbb60acfd760e2b9ca01cd856b0"
 
-"@llm-operator-types/file-manager@git+https://github.com/llm-operator/file-manager.git#v0.57.0":
+"@llm-operator-types/file-manager@git+ssh://git@github.com/llm-operator/file-manager.git#v0.57.0":
   version "1.0.0"
-  resolved "git+https://github.com/llm-operator/file-manager.git#fa6bccd8351b3fa87f58f85b8f4278153a1afe19"
+  resolved "git+ssh://git@github.com/llm-operator/file-manager.git#fa6bccd8351b3fa87f58f85b8f4278153a1afe19"
 
-"@llm-operator-types/inference-manager@git+https://github.com/llm-operator/inference-manager.git#v0.266.0":
+"@llm-operator-types/inference-manager@git+ssh://git@github.com/llm-operator/inference-manager.git#v0.266.0":
   version "1.0.0"
-  resolved "git+https://github.com/llm-operator/inference-manager.git#3e15470e01de85bdb2b6be0c6d29f474c7fe3c91"
+  resolved "git+ssh://git@github.com/llm-operator/inference-manager.git#3e15470e01de85bdb2b6be0c6d29f474c7fe3c91"
 
-"@llm-operator-types/job-manager@git+https://github.com/llm-operator/job-manager.git#v0.188.0":
+"@llm-operator-types/job-manager@git+ssh://git@github.com/llm-operator/job-manager.git#v0.188.0":
   version "1.0.0"
-  resolved "git+https://github.com/llm-operator/job-manager.git#f0908d59b35817ea1dede87cf38747617f1a5136"
+  resolved "git+ssh://git@github.com/llm-operator/job-manager.git#f0908d59b35817ea1dede87cf38747617f1a5136"
 
-"@llm-operator-types/model-manager@git+https://github.com/llm-operator/model-manager.git#v0.91.0":
+"@llm-operator-types/model-manager@git+ssh://git@github.com/llm-operator/model-manager.git#v0.91.0":
   version "1.0.0"
-  resolved "git+https://github.com/llm-operator/model-manager.git#2cbcc50a9eb208e3ecfeafac8986a27767533ccd"
+  resolved "git+ssh://git@github.com/llm-operator/model-manager.git#2cbcc50a9eb208e3ecfeafac8986a27767533ccd"
 
-"@llm-operator-types/rbac-manager@git+https://github.com/llm-operator/rbac-manager.git#v0.91.0":
+"@llm-operator-types/rbac-manager@git+ssh://git@github.com/llm-operator/rbac-manager.git#v0.91.0":
   version "1.0.0"
-  resolved "git+https://github.com/llm-operator/rbac-manager.git#935bd63523bbb50e3a121bcd81fced9e887b5921"
+  resolved "git+ssh://git@github.com/llm-operator/rbac-manager.git#935bd63523bbb50e3a121bcd81fced9e887b5921"
 
-"@llm-operator-types/user-manager@git+https://github.com/llm-operator/user-manager.git#v0.78.0":
+"@llm-operator-types/user-manager@git+ssh://git@github.com/llm-operator/user-manager.git#v0.78.0":
   version "1.0.0"
-  resolved "git+https://github.com/llm-operator/user-manager.git#1c79629305d623120968558f125264d2224ba5fc"
+  resolved "git+ssh://git@github.com/llm-operator/user-manager.git#1c79629305d623120968558f125264d2224ba5fc"
 
-"@llm-operator-types/vector-store-manager@git+https://github.com/llm-operator/vector-store-manager.git#v0.37.0":
+"@llm-operator-types/vector-store-manager@git+ssh://git@github.com/llm-operator/vector-store-manager.git#v0.37.0":
   version "1.0.0"
-  resolved "git+https://github.com/llm-operator/vector-store-manager.git#44872ab9d4af1b149a8589ad3560874710d599e0"
+  resolved "git+ssh://git@github.com/llm-operator/vector-store-manager.git#44872ab9d4af1b149a8589ad3560874710d599e0"
