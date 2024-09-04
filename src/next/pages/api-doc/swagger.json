@@ -1045,7 +1045,14 @@
     },
     "llmoperator.models.server.v1.GetBaseModelPathResponse": {
       "properties": {
+        "formats": {
+          "items": {
+            "$ref": "#/definitions/llmoperator.models.server.v1.ModelFormat"
+          },
+          "type": "array"
+        },
         "ggufModelPath": {
+          "description": "gguf_model_path is the path of the GGUF model. Set if the model suppors the GGUF formta.",
           "type": "string"
         },
         "path": {
@@ -1107,6 +1114,15 @@
         }
       },
       "type": "object"
+    },
+    "llmoperator.models.server.v1.ModelFormat": {
+      "default": "MODEL_FORMAT_UNSPECIFIED",
+      "enum": [
+        "MODEL_FORMAT_UNSPECIFIED",
+        "MODEL_FORMAT_GGUF",
+        "MODEL_FORMAT_HUGGING_FACE"
+      ],
+      "type": "string"
     },
     "llmoperator.models.server.v1.PublishModelResponse": {
       "type": "object"
