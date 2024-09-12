@@ -20,7 +20,7 @@
   "devDependencies": {
     "@llm-operator-types/cluster-manager": "git+ssh://git@github.com/llm-operator/cluster-manager.git#v0.15.0",
     "@llm-operator-types/file-manager": "git+ssh://git@github.com/llm-operator/file-manager.git#v0.57.0",
-    "@llm-operator-types/inference-manager": "git+ssh://git@github.com/llm-operator/inference-manager.git#v0.266.0",
+    "@llm-operator-types/inference-manager": "git+ssh://git@github.com/llm-operator/inference-manager.git#v0.327.0",
     "@llm-operator-types/job-manager": "git+ssh://git@github.com/llm-operator/job-manager.git#v0.188.0",
     "@llm-operator-types/model-manager": "git+ssh://git@github.com/llm-operator/model-manager.git#v0.96.0",
     "@llm-operator-types/rbac-manager": "git+ssh://git@github.com/llm-operator/rbac-manager.git#v0.91.0",

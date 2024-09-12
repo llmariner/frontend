@@ -322,6 +322,24 @@
       },
       "type": "object"
     },
+    "llmoperator.embeddings.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "llmoperator.files.server.v1.DeleteFileResponse": {
       "properties": {
         "deleted": {
@@ -882,6 +900,28 @@
       },
       "type": "object"
     },
+    "llmoperator.inference.server.v1.CreateEmbeddingRequest": {
+      "properties": {
+        "dimensions": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "encodingFormat": {
+          "type": "string"
+        },
+        "input": {
+          "description": "This can be a string or an array of strings, but we use string assuming that it is more common.",
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "llmoperator.inference.server.v1.EngineStatus": {
       "properties": {
         "engineId": {
@@ -967,6 +1007,10 @@
     },
     "llmoperator.inference.server.v1.Task": {
       "properties": {
+        "deprecatedChatCompletionRequest": {
+          "$ref": "#/definitions/llmoperator.inference.server.v1.CreateChatCompletionRequest",
+          "description": "For backward compatibility for old engine."
+        },
         "header": {
           "additionalProperties": {
             "$ref": "#/definitions/llmoperator.inference.server.v1.HeaderValue"
@@ -977,7 +1021,18 @@
           "type": "string"
         },
         "request": {
+          "$ref": "#/definitions/llmoperator.inference.server.v1.TaskRequest"
+        }
+      },
+      "type": "object"
+    },
+    "llmoperator.inference.server.v1.TaskRequest": {
+      "properties": {
+        "chatCompletion": {
           "$ref": "#/definitions/llmoperator.inference.server.v1.CreateChatCompletionRequest"
+        },
+        "embedding": {
+          "$ref": "#/definitions/llmoperator.inference.server.v1.CreateEmbeddingRequest"
         }
       },
       "type": "object"
