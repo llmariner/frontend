@@ -10,9 +10,9 @@
   version "1.0.0"
   resolved "git+ssh://git@github.com/llm-operator/file-manager.git#fa6bccd8351b3fa87f58f85b8f4278153a1afe19"
 
-"@llm-operator-types/inference-manager@git+ssh://git@github.com/llm-operator/inference-manager.git#v0.327.0":
+"@llm-operator-types/inference-manager@git+ssh://git@github.com/llm-operator/inference-manager.git#v0.339.0":
   version "1.0.0"
-  resolved "git+ssh://git@github.com/llm-operator/inference-manager.git#9d2054409b96983835bc16d7d2908edae9b0c71b"
+  resolved "git+ssh://git@github.com/llm-operator/inference-manager.git#aca3f3e91d30520593a01b751dd20b0c4eaeabd1"
 
 "@llm-operator-types/job-manager@git+ssh://git@github.com/llm-operator/job-manager.git#v0.188.0":
   version "1.0.0"
