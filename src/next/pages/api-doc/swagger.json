@@ -933,6 +933,9 @@
           },
           "type": "array"
         },
+        "ready": {
+          "type": "boolean"
+        },
         "syncStatus": {
           "$ref": "#/definitions/llmoperator.inference.server.v1.EngineStatusSyncStatus"
         }
