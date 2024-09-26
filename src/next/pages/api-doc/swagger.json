@@ -1,6 +1,107 @@
 {
   "consumes": ["application/json"],
   "definitions": {
+    "llmariner.rbac.server.v1.AuthorizeResponse": {
+      "properties": {
+        "authorized": {
+          "type": "boolean"
+        },
+        "organization": {
+          "$ref": "#/definitions/llmariner.rbac.server.v1.Organization"
+        },
+        "project": {
+          "$ref": "#/definitions/llmariner.rbac.server.v1.Project"
+        },
+        "tenantId": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/llmariner.rbac.server.v1.User"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.AuthorizeWorkerResponse": {
+      "properties": {
+        "authorized": {
+          "type": "boolean"
+        },
+        "cluster": {
+          "$ref": "#/definitions/llmariner.rbac.server.v1.Cluster"
+        },
+        "tenantId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.Cluster": {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.Organization": {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.Project": {
+      "properties": {
+        "assignedKubernetesEnvs": {
+          "items": {
+            "$ref": "#/definitions/llmariner.rbac.server.v1.ProjectAssignedKubernetesEnv"
+          },
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.ProjectAssignedKubernetesEnv": {
+      "properties": {
+        "clusterId": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.User": {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "llmoperator.batch.server.v1.BatchJob": {
       "properties": {
         "clusterId": {
@@ -1206,107 +1307,6 @@
       "type": "object"
     },
     "llmoperator.models.server.v1.rpcStatus": {
-      "properties": {
-        "code": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "details": {
-          "items": {
-            "$ref": "#/definitions/protobufAny"
-          },
-          "type": "array"
-        },
-        "message": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.AuthorizeResponse": {
-      "properties": {
-        "authorized": {
-          "type": "boolean"
-        },
-        "organization": {
-          "$ref": "#/definitions/llmoperator.rbac.server.v1.Organization"
-        },
-        "project": {
-          "$ref": "#/definitions/llmoperator.rbac.server.v1.Project"
-        },
-        "tenantId": {
-          "type": "string"
-        },
-        "user": {
-          "$ref": "#/definitions/llmoperator.rbac.server.v1.User"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.AuthorizeWorkerResponse": {
-      "properties": {
-        "authorized": {
-          "type": "boolean"
-        },
-        "cluster": {
-          "$ref": "#/definitions/llmoperator.rbac.server.v1.Cluster"
-        },
-        "tenantId": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.Cluster": {
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.Organization": {
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.Project": {
-      "properties": {
-        "assignedKubernetesEnvs": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.rbac.server.v1.ProjectAssignedKubernetesEnv"
-          },
-          "type": "array"
-        },
-        "id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.ProjectAssignedKubernetesEnv": {
-      "properties": {
-        "clusterId": {
-          "type": "string"
-        },
-        "namespace": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.User": {
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.rpcStatus": {
       "properties": {
         "code": {
           "format": "int32",
