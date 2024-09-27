@@ -33,3 +33,11 @@
 "@llm-operator-types/vector-store-manager@git+ssh://git@github.com/llm-operator/vector-store-manager.git#v0.37.0":
   version "1.0.0"
   resolved "git+ssh://git@github.com/llm-operator/vector-store-manager.git#44872ab9d4af1b149a8589ad3560874710d599e0"
+
+"@llmariner-types/rbac-manager@git+ssh://git@github.com/llm-operator/rbac-manager.git#v0.103.0":
+  version "1.0.0"
+  resolved "git+ssh://git@github.com/llm-operator/rbac-manager.git#85280102390151bcd137b66431a57ef06c5c0908"
+
+"@llmariner-types/user-manager@git+ssh://git@github.com/llm-operator/user-manager.git#v0.86.0":
+  version "1.0.0"
+  resolved "git+ssh://git@github.com/llm-operator/user-manager.git#ecfaf2ebab9227051852e8dd7777dd7b231caeee"

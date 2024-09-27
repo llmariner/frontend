@@ -16,7 +16,10 @@
     "url": "https://github.com/llm-operator/frontend/issues"
   },
   "homepage": "https://github.com/llm-operator/frontend#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@llmariner-types/rbac-manager": "git+ssh://git@github.com/llm-operator/rbac-manager.git#v0.103.0",
+    "@llmariner-types/user-manager": "git+ssh://git@github.com/llm-operator/user-manager.git#v0.86.0"
+  },
   "devDependencies": {
     "@llm-operator-types/cluster-manager": "git+ssh://git@github.com/llm-operator/cluster-manager.git#v0.15.0",
     "@llm-operator-types/file-manager": "git+ssh://git@github.com/llm-operator/file-manager.git#v0.57.0",

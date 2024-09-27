@@ -1,6 +1,402 @@
 {
   "consumes": ["application/json"],
   "definitions": {
+    "llmariner.rbac.server.v1.AuthorizeResponse": {
+      "properties": {
+        "authorized": {
+          "type": "boolean"
+        },
+        "organization": {
+          "$ref": "#/definitions/llmariner.rbac.server.v1.Organization"
+        },
+        "project": {
+          "$ref": "#/definitions/llmariner.rbac.server.v1.Project"
+        },
+        "tenantId": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/llmariner.rbac.server.v1.User"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.AuthorizeWorkerResponse": {
+      "properties": {
+        "authorized": {
+          "type": "boolean"
+        },
+        "cluster": {
+          "$ref": "#/definitions/llmariner.rbac.server.v1.Cluster"
+        },
+        "tenantId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.Cluster": {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.Organization": {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.Project": {
+      "properties": {
+        "assignedKubernetesEnvs": {
+          "items": {
+            "$ref": "#/definitions/llmariner.rbac.server.v1.ProjectAssignedKubernetesEnv"
+          },
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.ProjectAssignedKubernetesEnv": {
+      "properties": {
+        "clusterId": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.User": {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.APIKey": {
+      "properties": {
+        "createdAt": {
+          "format": "int64",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        },
+        "organization": {
+          "$ref": "#/definitions/llmariner.users.server.v1.Organization"
+        },
+        "project": {
+          "$ref": "#/definitions/llmariner.users.server.v1.Project"
+        },
+        "secret": {
+          "description": "secret is populated only when a new API key is created.",
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/llmariner.users.server.v1.User"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.CreateOrganizationRequest": {
+      "properties": {
+        "title": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.DeleteAPIKeyResponse": {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.DeleteOrganizationResponse": {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.DeleteProjectResponse": {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.InternalAPIKey": {
+      "properties": {
+        "apiKey": {
+          "$ref": "#/definitions/llmariner.users.server.v1.APIKey"
+        },
+        "tenantId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.InternalOrganization": {
+      "properties": {
+        "organization": {
+          "$ref": "#/definitions/llmariner.users.server.v1.Organization"
+        },
+        "tenantId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ListAPIKeysResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/llmariner.users.server.v1.APIKey"
+          },
+          "type": "array"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ListInternalAPIKeysResponse": {
+      "properties": {
+        "apiKeys": {
+          "items": {
+            "$ref": "#/definitions/llmariner.users.server.v1.InternalAPIKey"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ListInternalOrganizationsResponse": {
+      "properties": {
+        "organizations": {
+          "items": {
+            "$ref": "#/definitions/llmariner.users.server.v1.InternalOrganization"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ListOrganizationUsersResponse": {
+      "properties": {
+        "users": {
+          "items": {
+            "$ref": "#/definitions/llmariner.users.server.v1.OrganizationUser"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ListOrganizationsResponse": {
+      "properties": {
+        "organizations": {
+          "items": {
+            "$ref": "#/definitions/llmariner.users.server.v1.Organization"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ListProjectUsersResponse": {
+      "properties": {
+        "users": {
+          "items": {
+            "$ref": "#/definitions/llmariner.users.server.v1.ProjectUser"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ListProjectsResponse": {
+      "properties": {
+        "projects": {
+          "items": {
+            "$ref": "#/definitions/llmariner.users.server.v1.Project"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.Organization": {
+      "properties": {
+        "createdAt": {
+          "format": "int64",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.OrganizationRole": {
+      "default": "ORGANIZATION_ROLE_UNSPECIFIED",
+      "enum": [
+        "ORGANIZATION_ROLE_UNSPECIFIED",
+        "ORGANIZATION_ROLE_OWNER",
+        "ORGANIZATION_ROLE_READER"
+      ],
+      "type": "string"
+    },
+    "llmariner.users.server.v1.OrganizationUser": {
+      "properties": {
+        "organizationId": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/llmariner.users.server.v1.OrganizationRole"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.Project": {
+      "properties": {
+        "createdAt": {
+          "format": "int64",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "kubernetesNamespace": {
+          "description": "kubernetes_namespace is the namespace where the fine-tuning jobs for the project run.",
+          "type": "string"
+        },
+        "organizationId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ProjectRole": {
+      "default": "PROJECT_ROLE_UNSPECIFIED",
+      "enum": [
+        "PROJECT_ROLE_UNSPECIFIED",
+        "PROJECT_ROLE_OWNER",
+        "PROJECT_ROLE_MEMBER"
+      ],
+      "type": "string"
+    },
+    "llmariner.users.server.v1.ProjectUser": {
+      "properties": {
+        "organizationId": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/llmariner.users.server.v1.ProjectRole"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.User": {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "llmoperator.batch.server.v1.BatchJob": {
       "properties": {
         "clusterId": {
@@ -1223,107 +1619,6 @@
       },
       "type": "object"
     },
-    "llmoperator.rbac.server.v1.AuthorizeResponse": {
-      "properties": {
-        "authorized": {
-          "type": "boolean"
-        },
-        "organization": {
-          "$ref": "#/definitions/llmoperator.rbac.server.v1.Organization"
-        },
-        "project": {
-          "$ref": "#/definitions/llmoperator.rbac.server.v1.Project"
-        },
-        "tenantId": {
-          "type": "string"
-        },
-        "user": {
-          "$ref": "#/definitions/llmoperator.rbac.server.v1.User"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.AuthorizeWorkerResponse": {
-      "properties": {
-        "authorized": {
-          "type": "boolean"
-        },
-        "cluster": {
-          "$ref": "#/definitions/llmoperator.rbac.server.v1.Cluster"
-        },
-        "tenantId": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.Cluster": {
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.Organization": {
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.Project": {
-      "properties": {
-        "assignedKubernetesEnvs": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.rbac.server.v1.ProjectAssignedKubernetesEnv"
-          },
-          "type": "array"
-        },
-        "id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.ProjectAssignedKubernetesEnv": {
-      "properties": {
-        "clusterId": {
-          "type": "string"
-        },
-        "namespace": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.User": {
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.rpcStatus": {
-      "properties": {
-        "code": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "details": {
-          "items": {
-            "$ref": "#/definitions/protobufAny"
-          },
-          "type": "array"
-        },
-        "message": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "llmoperator.users.server.v1.APIKey": {
       "properties": {
         "createdAt": {
@@ -1355,56 +1650,6 @@
       },
       "type": "object"
     },
-    "llmoperator.users.server.v1.CreateOrganizationRequest": {
-      "properties": {
-        "title": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.DeleteAPIKeyResponse": {
-      "properties": {
-        "deleted": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.DeleteOrganizationResponse": {
-      "properties": {
-        "deleted": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.DeleteProjectResponse": {
-      "properties": {
-        "deleted": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "llmoperator.users.server.v1.InternalAPIKey": {
       "properties": {
         "apiKey": {
@@ -1422,20 +1667,6 @@
           "$ref": "#/definitions/llmoperator.users.server.v1.Organization"
         },
         "tenantId": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.ListAPIKeysResponse": {
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.users.server.v1.APIKey"
-          },
-          "type": "array"
-        },
-        "object": {
           "type": "string"
         }
       },
@@ -1468,17 +1699,6 @@
         "users": {
           "items": {
             "$ref": "#/definitions/llmoperator.users.server.v1.OrganizationUser"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.ListOrganizationsResponse": {
-      "properties": {
-        "organizations": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.users.server.v1.Organization"
           },
           "type": "array"
         }
@@ -2688,13 +2908,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.ListOrganizationsResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.ListOrganizationsResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2708,7 +2928,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.CreateOrganizationRequest"
+              "$ref": "#/definitions/llmariner.users.server.v1.CreateOrganizationRequest"
             }
           }
         ],
@@ -2716,13 +2936,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.Organization"
+              "$ref": "#/definitions/llmariner.users.server.v1.Organization"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2744,13 +2964,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.DeleteOrganizationResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.DeleteOrganizationResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2772,13 +2992,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.ListProjectsResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.ListProjectsResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2814,13 +3034,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.Project"
+              "$ref": "#/definitions/llmariner.users.server.v1.Project"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2848,13 +3068,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.DeleteProjectResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.DeleteProjectResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2882,13 +3102,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.ListAPIKeysResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.ListAPIKeysResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2927,13 +3147,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.APIKey"
+              "$ref": "#/definitions/llmariner.users.server.v1.APIKey"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2967,13 +3187,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.DeleteAPIKeyResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.DeleteAPIKeyResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -3002,13 +3222,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.ListProjectUsersResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.ListProjectUsersResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -3036,7 +3256,7 @@
             "schema": {
               "properties": {
                 "role": {
-                  "$ref": "#/definitions/llmoperator.users.server.v1.ProjectRole"
+                  "$ref": "#/definitions/llmariner.users.server.v1.ProjectRole"
                 },
                 "userId": {
                   "type": "string"
@@ -3050,13 +3270,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.ProjectUser"
+              "$ref": "#/definitions/llmariner.users.server.v1.ProjectUser"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -3096,7 +3316,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -3119,13 +3339,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.ListOrganizationUsersResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.ListOrganizationUsersResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -3147,7 +3367,7 @@
             "schema": {
               "properties": {
                 "role": {
-                  "$ref": "#/definitions/llmoperator.users.server.v1.OrganizationRole"
+                  "$ref": "#/definitions/llmariner.users.server.v1.OrganizationRole"
                 },
                 "userId": {
                   "type": "string"
@@ -3161,13 +3381,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.OrganizationUser"
+              "$ref": "#/definitions/llmariner.users.server.v1.OrganizationUser"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -3201,7 +3421,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
