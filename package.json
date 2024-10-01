@@ -18,13 +18,13 @@
   "homepage": "https://github.com/llmariner/frontend#readme",
   "dependencies": {},
   "devDependencies": {
-    "@llmariner-types/cluster-manager": "git+ssh://git@github.com/llmariner/cluster-manager.git#v0.15.0",
-    "@llmariner-types/file-manager": "git+ssh://git@github.com/llmariner/file-manager.git#v0.57.0",
-    "@llmariner-types/inference-manager": "git+ssh://git@github.com/llmariner/inference-manager.git#v0.339.0",
-    "@llmariner-types/job-manager": "git+ssh://git@github.com/llmariner/job-manager.git#v0.188.0",
-    "@llmariner-types/model-manager": "git+ssh://git@github.com/llmariner/model-manager.git#v0.96.0",
-    "@llmariner-types/rbac-manager": "git+ssh://git@github.com/llmariner/rbac-manager.git#v0.91.0",
-    "@llmariner-types/user-manager": "git+ssh://git@github.com/llmariner/user-manager.git#v0.78.0",
-    "@llmariner-types/vector-store-manager": "git+ssh://git@github.com/llmariner/vector-store-manager.git#v0.37.0"
+    "@llmariner-types/cluster-manager": "git+ssh://git@github.com/llmariner/cluster-manager.git#v0.25.0",
+    "@llmariner-types/file-manager": "git+ssh://git@github.com/llmariner/file-manager.git#v0.70.0",
+    "@llmariner-types/inference-manager": "git+ssh://git@github.com/llmariner/inference-manager.git#v0.361.0",
+    "@llmariner-types/job-manager": "git+ssh://git@github.com/llmariner/job-manager.git#v0.209.0",
+    "@llmariner-types/model-manager": "git+ssh://git@github.com/llmariner/model-manager.git#v0.113.0",
+    "@llmariner-types/rbac-manager": "git+ssh://git@github.com/llmariner/rbac-manager.git#v0.107.0",
+    "@llmariner-types/user-manager": "git+ssh://git@github.com/llmariner/user-manager.git#v0.91.0",
+    "@llmariner-types/vector-store-manager": "git+ssh://git@github.com/llmariner/vector-store-manager.git#v0.53.0"
   }
 }

@@ -1,6 +1,2169 @@
 {
   "consumes": ["application/json"],
   "definitions": {
+    "llmariner.batch.server.v1.BatchJob": {
+      "properties": {
+        "clusterId": {
+          "description": "cluster_id is the ID of the cluster where he job runs.",
+          "type": "string"
+        },
+        "command": {
+          "type": "string"
+        },
+        "createdAt": {
+          "format": "int64",
+          "type": "string"
+        },
+        "dataFiles": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "envs": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "error": {
+          "$ref": "#/definitions/llmariner.batch.server.v1.BatchJobError"
+        },
+        "finishedAt": {
+          "format": "int64",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/definitions/llmariner.batch.server.v1.BatchJobKind"
+        },
+        "kubernetesNamespace": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "resources": {
+          "$ref": "#/definitions/llmariner.batch.server.v1.BatchJobResources"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.batch.server.v1.BatchJobError": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.batch.server.v1.BatchJobKind": {
+      "properties": {
+        "pytorch": {
+          "$ref": "#/definitions/llmariner.batch.server.v1.PyTorchJob"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.batch.server.v1.BatchJobResources": {
+      "properties": {
+        "gpuCount": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.batch.server.v1.CreateBatchJobRequest": {
+      "properties": {
+        "command": {
+          "type": "string"
+        },
+        "dataFiles": {
+          "description": "data_files is a list of file IDs that will be downloaded to the container.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "envs": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "image": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/definitions/llmariner.batch.server.v1.BatchJobKind"
+        },
+        "resources": {
+          "$ref": "#/definitions/llmariner.batch.server.v1.BatchJobResources"
+        },
+        "scripts": {
+          "additionalProperties": {
+            "format": "byte",
+            "type": "string"
+          },
+          "description": "scripts is a map of script names to script contents.\nThe total size of the scripts should not exceed 1MB.",
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.batch.server.v1.InternalBatchJob": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/llmariner.batch.server.v1.BatchJob"
+        },
+        "queuedAction": {
+          "$ref": "#/definitions/llmariner.batch.server.v1.InternalBatchJobAction"
+        },
+        "state": {
+          "$ref": "#/definitions/llmariner.batch.server.v1.InternalBatchJobState"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.batch.server.v1.InternalBatchJobAction": {
+      "default": "ACTION_UNSPECIFIED",
+      "enum": ["ACTION_UNSPECIFIED", "CREATING", "CANCELING", "DELETING"],
+      "type": "string"
+    },
+    "llmariner.batch.server.v1.InternalBatchJobState": {
+      "default": "STATE_UNSPECIFIED",
+      "enum": [
+        "STATE_UNSPECIFIED",
+        "QUEUED",
+        "RUNNING",
+        "SUCCEEDED",
+        "FAILED",
+        "CANCELED",
+        "DELETED"
+      ],
+      "type": "string"
+    },
+    "llmariner.batch.server.v1.ListBatchJobsResponse": {
+      "properties": {
+        "hasMore": {
+          "type": "boolean"
+        },
+        "jobs": {
+          "items": {
+            "$ref": "#/definitions/llmariner.batch.server.v1.BatchJob"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.batch.server.v1.ListQueuedInternalBatchJobsResponse": {
+      "properties": {
+        "jobs": {
+          "items": {
+            "$ref": "#/definitions/llmariner.batch.server.v1.InternalBatchJob"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.batch.server.v1.PyTorchJob": {
+      "properties": {
+        "workerCount": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.batch.server.v1.UpdateBatchJobStateResponse": {
+      "type": "object"
+    },
+    "llmariner.batch.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.chat.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.clusters.server.v1.Cluster": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        },
+        "registrationKey": {
+          "description": "registration_key is the key used to register the cluster. Only populated\nwhen a new cluster is created or from internal gRPC service.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.clusters.server.v1.CreateClusterRequest": {
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.clusters.server.v1.DeleteClusterResponse": {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.clusters.server.v1.InternalCluster": {
+      "properties": {
+        "cluster": {
+          "$ref": "#/definitions/llmariner.clusters.server.v1.Cluster"
+        },
+        "tenantId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.clusters.server.v1.ListClustersResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/llmariner.clusters.server.v1.Cluster"
+          },
+          "type": "array"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.clusters.server.v1.ListInternalClustersResponse": {
+      "properties": {
+        "clusters": {
+          "items": {
+            "$ref": "#/definitions/llmariner.clusters.server.v1.InternalCluster"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.clusters.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.embeddings.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.files.server.v1.DeleteFileResponse": {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.files.server.v1.File": {
+      "properties": {
+        "bytes": {
+          "format": "int64",
+          "type": "string"
+        },
+        "createdAt": {
+          "format": "int64",
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.files.server.v1.GetFilePathResponse": {
+      "properties": {
+        "filename": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.files.server.v1.ListFilesResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/llmariner.files.server.v1.File"
+          },
+          "type": "array"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.files.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.fine_tuning.server.v1.CreateJobRequest": {
+      "properties": {
+        "hyperparameters": {
+          "$ref": "#/definitions/llmariner.fine_tuning.server.v1.CreateJobRequestHyperparameters"
+        },
+        "integrations": {
+          "items": {
+            "$ref": "#/definitions/llmariner.fine_tuning.server.v1.Integration"
+          },
+          "type": "array"
+        },
+        "model": {
+          "type": "string"
+        },
+        "seed": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "suffix": {
+          "description": "A string of up to 18 characters that will be added to your fine-tuned model name.\n\nFor example, a suffix of \"custom-model-name\" would produce a\nmodel name like\nft:gpt-3.5-turbo:openai:custom-model-name:7p4lURel.",
+          "type": "string"
+        },
+        "trainingFile": {
+          "type": "string"
+        },
+        "validationFile": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.fine_tuning.server.v1.CreateJobRequestHyperparameters": {
+      "properties": {
+        "batchSize": {
+          "description": "Note: OpenAI API supports string or interger.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "learningRateMultiplier": {
+          "description": "Note: OpenAI API supports string or number.",
+          "format": "double",
+          "type": "number"
+        },
+        "nEpochs": {
+          "description": "Note: OpenAI API supports string or interger.",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.fine_tuning.server.v1.Integration": {
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "wandb": {
+          "$ref": "#/definitions/llmariner.fine_tuning.server.v1.IntegrationWandb"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.fine_tuning.server.v1.IntegrationWandb": {
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "project": {
+          "type": "string"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.fine_tuning.server.v1.InternalJob": {
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/llmariner.fine_tuning.server.v1.Job"
+        },
+        "outputModelId": {
+          "type": "string"
+        },
+        "queuedAction": {
+          "$ref": "#/definitions/llmariner.fine_tuning.server.v1.InternalJobAction"
+        },
+        "state": {
+          "$ref": "#/definitions/llmariner.fine_tuning.server.v1.InternalJobState",
+          "description": "state is also stored in the job object, but this value takes precedence."
+        },
+        "suffix": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.fine_tuning.server.v1.InternalJobAction": {
+      "default": "ACTION_UNSPECIFIED",
+      "enum": ["ACTION_UNSPECIFIED", "CREATING", "CANCELING"],
+      "type": "string"
+    },
+    "llmariner.fine_tuning.server.v1.InternalJobState": {
+      "default": "STATE_UNSPECIFIED",
+      "enum": [
+        "STATE_UNSPECIFIED",
+        "QUEUED",
+        "RUNNING",
+        "FAILED",
+        "SUCCEEDED",
+        "CANCELED"
+      ],
+      "type": "string"
+    },
+    "llmariner.fine_tuning.server.v1.Job": {
+      "properties": {
+        "clusterId": {
+          "description": "cluster_id is the ID of the cluster where he job runs.",
+          "type": "string"
+        },
+        "createdAt": {
+          "format": "int64",
+          "type": "string"
+        },
+        "error": {
+          "$ref": "#/definitions/llmariner.fine_tuning.server.v1.JobError"
+        },
+        "fineTunedModel": {
+          "description": "The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running.",
+          "type": "string"
+        },
+        "finishedAt": {
+          "format": "int64",
+          "type": "string"
+        },
+        "hyperparameters": {
+          "$ref": "#/definitions/llmariner.fine_tuning.server.v1.JobHyperparameters"
+        },
+        "id": {
+          "type": "string"
+        },
+        "integrations": {
+          "items": {
+            "$ref": "#/definitions/llmariner.fine_tuning.server.v1.Integration"
+          },
+          "type": "array"
+        },
+        "kubernetesNamespace": {
+          "type": "string"
+        },
+        "model": {
+          "description": "The base model that is being fine-tuned.",
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        },
+        "organizationId": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "resultFiles": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "seed": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "status": {
+          "description": "The current status of the fine-tuning job, which can be either validating_files, queued, running, succeeded, failed, or cancelled.",
+          "type": "string"
+        },
+        "trainedTokens": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "trainingFile": {
+          "type": "string"
+        },
+        "validationFile": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.fine_tuning.server.v1.JobError": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "param": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.fine_tuning.server.v1.JobHyperparameters": {
+      "properties": {
+        "batchSize": {
+          "description": "Note: OpenAI API supports string or interger.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "learningRateMultiplier": {
+          "description": "Note: OpenAI API supports string or number.",
+          "format": "double",
+          "type": "number"
+        },
+        "nEpochs": {
+          "description": "Note: OpenAI API supports string or interger.",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.fine_tuning.server.v1.ListJobsResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/llmariner.fine_tuning.server.v1.Job"
+          },
+          "type": "array"
+        },
+        "hasMore": {
+          "type": "boolean"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.fine_tuning.server.v1.ListQueuedInternalJobsResponse": {
+      "properties": {
+        "jobs": {
+          "items": {
+            "$ref": "#/definitions/llmariner.fine_tuning.server.v1.InternalJob"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.fine_tuning.server.v1.UpdateJobPhaseRequestPhase": {
+      "default": "PHASE_UNSPECIFIED",
+      "enum": [
+        "PHASE_UNSPECIFIED",
+        "PREPROCESSED",
+        "JOB_CREATED",
+        "FINETUNED",
+        "FAILED",
+        "RECREATE",
+        "CANCELED"
+      ],
+      "type": "string"
+    },
+    "llmariner.fine_tuning.server.v1.UpdateJobPhaseResponse": {
+      "type": "object"
+    },
+    "llmariner.fine_tuning.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.CreateChatCompletionRequest": {
+      "properties": {
+        "frequencyPenalty": {
+          "format": "double",
+          "type": "number"
+        },
+        "logitBias": {
+          "additionalProperties": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": "object"
+        },
+        "logprobs": {
+          "type": "boolean"
+        },
+        "maxTokens": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "messages": {
+          "description": "TODO(kenji): Revisit this.",
+          "items": {
+            "$ref": "#/definitions/llmariner.inference.server.v1.CreateChatCompletionRequestMessage"
+          },
+          "type": "array"
+        },
+        "model": {
+          "type": "string"
+        },
+        "n": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "presencePenalty": {
+          "format": "double",
+          "type": "number"
+        },
+        "responseFormat": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.CreateChatCompletionRequestResponseFormat"
+        },
+        "seed": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "stop": {
+          "items": {
+            "type": "string"
+          },
+          "title": "string / arrary/ null",
+          "type": "array"
+        },
+        "stream": {
+          "type": "boolean"
+        },
+        "temperature": {
+          "format": "double",
+          "type": "number"
+        },
+        "toolChoice": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.CreateChatCompletionRequestToolChoice"
+        },
+        "tools": {
+          "items": {
+            "$ref": "#/definitions/llmariner.inference.server.v1.CreateChatCompletionRequestTool"
+          },
+          "type": "array"
+        },
+        "topLogprobs": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "topP": {
+          "format": "double",
+          "type": "number"
+        },
+        "user": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.CreateChatCompletionRequestMessage": {
+      "description": "Message has fields for system message, user message, assistant message, and tool message.",
+      "properties": {
+        "content": {
+          "description": "The type of content varies. For eample, it is string or array for UserMesasge.",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "toolCalls": {
+          "items": {
+            "$ref": "#/definitions/llmariner.inference.server.v1.CreateChatCompletionRequestMessageToolCall"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.CreateChatCompletionRequestMessageToolCall": {
+      "properties": {
+        "function": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.CreateChatCompletionRequestMessageToolCallFunction"
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.CreateChatCompletionRequestMessageToolCallFunction": {
+      "properties": {
+        "arguments": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.CreateChatCompletionRequestResponseFormat": {
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.CreateChatCompletionRequestTool": {
+      "properties": {
+        "function": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.CreateChatCompletionRequestToolFunction"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.CreateChatCompletionRequestToolChoice": {
+      "properties": {
+        "choice": {
+          "description": "TODO(guangrui): revisit on how to assign string value of ToolChoice.",
+          "type": "string"
+        },
+        "function": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.CreateChatCompletionRequestToolChoiceFunction"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.CreateChatCompletionRequestToolChoiceFunction": {
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.CreateChatCompletionRequestToolFunction": {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "parameters": {
+          "description": "TODO(kenji): Revisit this. This specifies parameters the functions accepts,\ndescribed as a JSON Schema object.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.CreateEmbeddingRequest": {
+      "properties": {
+        "dimensions": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "encodingFormat": {
+          "type": "string"
+        },
+        "input": {
+          "description": "This can be a string or an array of strings, but we use string assuming that it is more common.",
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.EngineStatus": {
+      "properties": {
+        "engineId": {
+          "type": "string"
+        },
+        "modelIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "ready": {
+          "type": "boolean"
+        },
+        "syncStatus": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.EngineStatusSyncStatus"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.EngineStatusSyncStatus": {
+      "properties": {
+        "inProgressModelIds": {
+          "description": "in_progress_model_ids is a list of model ids that are currently being synced.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.HeaderValue": {
+      "properties": {
+        "values": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.HttpResponse": {
+      "properties": {
+        "body": {
+          "description": "body is empty for server sent events.",
+          "format": "byte",
+          "type": "string"
+        },
+        "header": {
+          "additionalProperties": {
+            "$ref": "#/definitions/llmariner.inference.server.v1.HeaderValue"
+          },
+          "type": "object"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.ProcessTasksResponse": {
+      "properties": {
+        "newTask": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.Task"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.ServerSentEvent": {
+      "properties": {
+        "data": {
+          "format": "byte",
+          "type": "string"
+        },
+        "isLastEvent": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.Task": {
+      "properties": {
+        "deprecatedChatCompletionRequest": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.CreateChatCompletionRequest",
+          "description": "For backward compatibility for old engine."
+        },
+        "header": {
+          "additionalProperties": {
+            "$ref": "#/definitions/llmariner.inference.server.v1.HeaderValue"
+          },
+          "type": "object"
+        },
+        "id": {
+          "type": "string"
+        },
+        "request": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.TaskRequest"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.TaskRequest": {
+      "properties": {
+        "chatCompletion": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.CreateChatCompletionRequest"
+        },
+        "embedding": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.CreateEmbeddingRequest"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.TaskResult": {
+      "properties": {
+        "httpResponse": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.HttpResponse"
+        },
+        "serverSentEvent": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.ServerSentEvent"
+        },
+        "taskId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.models.server.v1.AdapterType": {
+      "default": "ADAPTER_TYPE_UNSPECIFIED",
+      "enum": [
+        "ADAPTER_TYPE_UNSPECIFIED",
+        "ADAPTER_TYPE_LORA",
+        "ADAPTER_TYPE_QLORA"
+      ],
+      "type": "string"
+    },
+    "llmariner.models.server.v1.BaseModel": {
+      "properties": {
+        "created": {
+          "format": "int64",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.models.server.v1.DeleteModelResponse": {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.models.server.v1.GetBaseModelPathResponse": {
+      "properties": {
+        "formats": {
+          "items": {
+            "$ref": "#/definitions/llmariner.models.server.v1.ModelFormat"
+          },
+          "type": "array"
+        },
+        "ggufModelPath": {
+          "description": "gguf_model_path is the path of the GGUF model. Set if the model suppors the GGUF formta.",
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.models.server.v1.GetModelPathResponse": {
+      "description": "GetModelPathResponse is deprecated, use GetModelAttributesResponse instead.",
+      "properties": {
+        "path": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.models.server.v1.ListBaseModelsResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/llmariner.models.server.v1.BaseModel"
+          },
+          "type": "array"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.models.server.v1.ListModelsResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/llmariner.models.server.v1.Model"
+          },
+          "type": "array"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.models.server.v1.Model": {
+      "properties": {
+        "created": {
+          "format": "int64",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        },
+        "ownedBy": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.models.server.v1.ModelAttributes": {
+      "properties": {
+        "adapter": {
+          "$ref": "#/definitions/llmariner.models.server.v1.AdapterType"
+        },
+        "baseModel": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "quantization": {
+          "$ref": "#/definitions/llmariner.models.server.v1.QuantizationType"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.models.server.v1.ModelFormat": {
+      "default": "MODEL_FORMAT_UNSPECIFIED",
+      "enum": [
+        "MODEL_FORMAT_UNSPECIFIED",
+        "MODEL_FORMAT_GGUF",
+        "MODEL_FORMAT_HUGGING_FACE"
+      ],
+      "type": "string"
+    },
+    "llmariner.models.server.v1.PublishModelResponse": {
+      "type": "object"
+    },
+    "llmariner.models.server.v1.QuantizationType": {
+      "default": "QUANTIZATION_TYPE_UNSPECIFIED",
+      "enum": [
+        "QUANTIZATION_TYPE_UNSPECIFIED",
+        "QUANTIZATION_TYPE_GGUF",
+        "QUANTIZATION_TYPE_AWQ"
+      ],
+      "type": "string"
+    },
+    "llmariner.models.server.v1.RegisterModelResponse": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "path": {
+          "description": "path is the path where the model is stored.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.models.server.v1.StorageConfig": {
+      "properties": {
+        "pathPrefix": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.models.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.AuthorizeResponse": {
+      "properties": {
+        "authorized": {
+          "type": "boolean"
+        },
+        "organization": {
+          "$ref": "#/definitions/llmariner.rbac.server.v1.Organization"
+        },
+        "project": {
+          "$ref": "#/definitions/llmariner.rbac.server.v1.Project"
+        },
+        "tenantId": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/llmariner.rbac.server.v1.User"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.AuthorizeWorkerResponse": {
+      "properties": {
+        "authorized": {
+          "type": "boolean"
+        },
+        "cluster": {
+          "$ref": "#/definitions/llmariner.rbac.server.v1.Cluster"
+        },
+        "tenantId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.Cluster": {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.Organization": {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.Project": {
+      "properties": {
+        "assignedKubernetesEnvs": {
+          "items": {
+            "$ref": "#/definitions/llmariner.rbac.server.v1.ProjectAssignedKubernetesEnv"
+          },
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.ProjectAssignedKubernetesEnv": {
+      "properties": {
+        "clusterId": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.User": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "internalId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.rbac.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.APIKey": {
+      "properties": {
+        "createdAt": {
+          "format": "int64",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        },
+        "organization": {
+          "$ref": "#/definitions/llmariner.users.server.v1.Organization"
+        },
+        "project": {
+          "$ref": "#/definitions/llmariner.users.server.v1.Project"
+        },
+        "secret": {
+          "description": "secret is populated only when a new API key is created.",
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/llmariner.users.server.v1.User"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.CreateOrganizationRequest": {
+      "properties": {
+        "title": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.DeleteAPIKeyResponse": {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.DeleteOrganizationResponse": {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.DeleteProjectResponse": {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.InternalAPIKey": {
+      "properties": {
+        "apiKey": {
+          "$ref": "#/definitions/llmariner.users.server.v1.APIKey"
+        },
+        "tenantId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.InternalOrganization": {
+      "properties": {
+        "organization": {
+          "$ref": "#/definitions/llmariner.users.server.v1.Organization"
+        },
+        "tenantId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ListAPIKeysResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/llmariner.users.server.v1.APIKey"
+          },
+          "type": "array"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ListInternalAPIKeysResponse": {
+      "properties": {
+        "apiKeys": {
+          "items": {
+            "$ref": "#/definitions/llmariner.users.server.v1.InternalAPIKey"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ListInternalOrganizationsResponse": {
+      "properties": {
+        "organizations": {
+          "items": {
+            "$ref": "#/definitions/llmariner.users.server.v1.InternalOrganization"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ListOrganizationUsersResponse": {
+      "properties": {
+        "users": {
+          "items": {
+            "$ref": "#/definitions/llmariner.users.server.v1.OrganizationUser"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ListOrganizationsResponse": {
+      "properties": {
+        "organizations": {
+          "items": {
+            "$ref": "#/definitions/llmariner.users.server.v1.Organization"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ListProjectUsersResponse": {
+      "properties": {
+        "users": {
+          "items": {
+            "$ref": "#/definitions/llmariner.users.server.v1.ProjectUser"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ListProjectsResponse": {
+      "properties": {
+        "projects": {
+          "items": {
+            "$ref": "#/definitions/llmariner.users.server.v1.Project"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.Organization": {
+      "properties": {
+        "createdAt": {
+          "format": "int64",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.OrganizationRole": {
+      "default": "ORGANIZATION_ROLE_UNSPECIFIED",
+      "enum": [
+        "ORGANIZATION_ROLE_UNSPECIFIED",
+        "ORGANIZATION_ROLE_OWNER",
+        "ORGANIZATION_ROLE_READER"
+      ],
+      "type": "string"
+    },
+    "llmariner.users.server.v1.OrganizationUser": {
+      "properties": {
+        "internalUserId": {
+          "type": "string"
+        },
+        "organizationId": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/llmariner.users.server.v1.OrganizationRole"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.Project": {
+      "properties": {
+        "createdAt": {
+          "format": "int64",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "kubernetesNamespace": {
+          "description": "kubernetes_namespace is the namespace where the fine-tuning jobs for the project run.",
+          "type": "string"
+        },
+        "organizationId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.ProjectRole": {
+      "default": "PROJECT_ROLE_UNSPECIFIED",
+      "enum": [
+        "PROJECT_ROLE_UNSPECIFIED",
+        "PROJECT_ROLE_OWNER",
+        "PROJECT_ROLE_MEMBER"
+      ],
+      "type": "string"
+    },
+    "llmariner.users.server.v1.ProjectUser": {
+      "properties": {
+        "organizationId": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/llmariner.users.server.v1.ProjectRole"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.User": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "internalId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.users.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.vector_store.v1.ChunkingStrategy": {
+      "properties": {
+        "static": {
+          "$ref": "#/definitions/llmariner.vector_store.v1.ChunkingStrategyStatic"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.vector_store.v1.ChunkingStrategyStatic": {
+      "properties": {
+        "chunkOverlapTokens": {
+          "format": "int64",
+          "type": "string"
+        },
+        "maxChunkSizeTokens": {
+          "format": "int64",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.vector_store.v1.CreateVectorStoreRequest": {
+      "properties": {
+        "chunkingStrategy": {
+          "$ref": "#/definitions/llmariner.vector_store.v1.ChunkingStrategy"
+        },
+        "expiresAfter": {
+          "$ref": "#/definitions/llmariner.vector_store.v1.ExpiresAfter"
+        },
+        "fileIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "metadata": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.vector_store.v1.DeleteVectorStoreFileResponse": {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.vector_store.v1.DeleteVectorStoreResponse": {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.vector_store.v1.ExpiresAfter": {
+      "properties": {
+        "anchor": {
+          "description": "Anchor timestamp after which the expiration policy applies. Supported anchors: last_active_at.",
+          "type": "string"
+        },
+        "days": {
+          "description": "The number of days after the anchor time that the vector store will expire.",
+          "format": "int64",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.vector_store.v1.ListVectorStoreFilesResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/llmariner.vector_store.v1.VectorStoreFile"
+          },
+          "type": "array"
+        },
+        "firstId": {
+          "type": "string"
+        },
+        "hasMore": {
+          "type": "boolean"
+        },
+        "lastId": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.vector_store.v1.ListVectorStoresResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/llmariner.vector_store.v1.VectorStore"
+          },
+          "type": "array"
+        },
+        "firstId": {
+          "type": "string"
+        },
+        "hasMore": {
+          "type": "boolean"
+        },
+        "lastId": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.vector_store.v1.SearchVectorStoreResponse": {
+      "properties": {
+        "documents": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.vector_store.v1.VectorStore": {
+      "properties": {
+        "createdAt": {
+          "description": "The Unix timestamp (in seconds) for when the vector store was created.",
+          "format": "int64",
+          "type": "string"
+        },
+        "expiresAfter": {
+          "$ref": "#/definitions/llmariner.vector_store.v1.ExpiresAfter"
+        },
+        "expiresAt": {
+          "description": "integer or null. The Unix timestamp (in seconds) for when the vector store will expire.",
+          "format": "int64",
+          "type": "string"
+        },
+        "fileCounts": {
+          "$ref": "#/definitions/llmariner.vector_store.v1.VectorStoreFileCounts"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastActiveAt": {
+          "description": "integer or null. The Unix timestamp (in seconds) for when the vector store was last active.",
+          "format": "int64",
+          "type": "string"
+        },
+        "metadata": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "name": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        },
+        "status": {
+          "description": "The status of the vector store, which can be either expired, in_progress, or completed.\nA status of completed indicates that the vector store is ready for use.",
+          "type": "string"
+        },
+        "usageBytes": {
+          "description": "The total number of bytes used by the files in the vector store.",
+          "format": "int64",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.vector_store.v1.VectorStoreFile": {
+      "properties": {
+        "chunkingStrategy": {
+          "$ref": "#/definitions/llmariner.vector_store.v1.ChunkingStrategy"
+        },
+        "createdAt": {
+          "description": "The Unix timestamp (in seconds) for when the vector store file was created.",
+          "format": "int64",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastError": {
+          "$ref": "#/definitions/llmariner.vector_store.v1.VectorStoreFileError",
+          "description": "Error or null."
+        },
+        "object": {
+          "type": "string"
+        },
+        "status": {
+          "description": "The status of the vector store file, which can be either in_progress, completed, cancelled, or failed.\nThe status completed indicates that the vector store file is ready for use.",
+          "type": "string"
+        },
+        "usageBytes": {
+          "description": "The total vector store usage in bytes. Note that this may be different from the original file size.",
+          "format": "int64",
+          "type": "string"
+        },
+        "vectorStoreId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.vector_store.v1.VectorStoreFileCounts": {
+      "properties": {
+        "cancelled": {
+          "format": "int64",
+          "type": "string"
+        },
+        "completed": {
+          "format": "int64",
+          "type": "string"
+        },
+        "failed": {
+          "format": "int64",
+          "type": "string"
+        },
+        "inProgress": {
+          "format": "int64",
+          "type": "string"
+        },
+        "total": {
+          "format": "int64",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.vector_store.v1.VectorStoreFileError": {
+      "properties": {
+        "code": {
+          "description": "One of server_error or rate_limit_exceeded.",
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.vector_store.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.workspace.server.v1.CreateNotebookRequest": {
+      "properties": {
+        "envs": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "image": {
+          "$ref": "#/definitions/llmariner.workspace.server.v1.CreateNotebookRequestImage"
+        },
+        "name": {
+          "type": "string"
+        },
+        "resources": {
+          "$ref": "#/definitions/llmariner.workspace.server.v1.serverv1Resources"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.workspace.server.v1.CreateNotebookRequestImage": {
+      "properties": {
+        "type": {
+          "description": "Type of preset images.",
+          "type": "string"
+        },
+        "uri": {
+          "description": "URI to the custom container image.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.workspace.server.v1.DeleteNotebookResponse": {
+      "type": "object"
+    },
+    "llmariner.workspace.server.v1.InternalNotebook": {
+      "properties": {
+        "notebook": {
+          "$ref": "#/definitions/llmariner.workspace.server.v1.Notebook"
+        },
+        "queuedAction": {
+          "$ref": "#/definitions/llmariner.workspace.server.v1.NotebookQueuedAction"
+        },
+        "state": {
+          "$ref": "#/definitions/llmariner.workspace.server.v1.NotebookState"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.workspace.server.v1.ListNotebooksResponse": {
+      "properties": {
+        "hasMore": {
+          "type": "boolean"
+        },
+        "notebooks": {
+          "items": {
+            "$ref": "#/definitions/llmariner.workspace.server.v1.Notebook"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.workspace.server.v1.ListQueuedInternalNotebooksResponse": {
+      "properties": {
+        "notebooks": {
+          "items": {
+            "$ref": "#/definitions/llmariner.workspace.server.v1.InternalNotebook"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.workspace.server.v1.Notebook": {
+      "properties": {
+        "clusterId": {
+          "description": "cluster_id is the ID of the cluster where the notebook runs.",
+          "type": "string"
+        },
+        "createdAt": {
+          "format": "int64",
+          "type": "string"
+        },
+        "envs": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "error": {
+          "$ref": "#/definitions/llmariner.workspace.server.v1.NotebookError"
+        },
+        "id": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "kubernetesNamespace": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "resources": {
+          "$ref": "#/definitions/llmariner.workspace.server.v1.serverv1Resources"
+        },
+        "startedAt": {
+          "format": "int64",
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "stoppedAt": {
+          "format": "int64",
+          "type": "string"
+        },
+        "token": {
+          "description": "this field is populated only when a new notebook is created.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.workspace.server.v1.NotebookError": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.workspace.server.v1.NotebookQueuedAction": {
+      "default": "ACTION_UNSPECIFIED",
+      "enum": ["ACTION_UNSPECIFIED", "STARTING", "STOPPING", "DELETING"],
+      "type": "string"
+    },
+    "llmariner.workspace.server.v1.NotebookState": {
+      "default": "STATE_UNSPECIFIED",
+      "enum": [
+        "STATE_UNSPECIFIED",
+        "QUEUED",
+        "INITIALIZING",
+        "RUNNING",
+        "STOPPED",
+        "FAILED",
+        "DELETED"
+      ],
+      "type": "string"
+    },
+    "llmariner.workspace.server.v1.ResourcesQuantity": {
+      "properties": {
+        "limits": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "requests": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.workspace.server.v1.UpdateNotebookStateResponse": {
+      "type": "object"
+    },
+    "llmariner.workspace.server.v1.rpcStatus": {
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "details": {
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.workspace.server.v1.serverv1Resources": {
+      "properties": {
+        "cpuMilicore": {
+          "$ref": "#/definitions/llmariner.workspace.server.v1.ResourcesQuantity"
+        },
+        "gpuCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "memoryMegabytes": {
+          "$ref": "#/definitions/llmariner.workspace.server.v1.ResourcesQuantity"
+        },
+        "storageMegabytes": {
+          "$ref": "#/definitions/llmariner.workspace.server.v1.ResourcesQuantity"
+        }
+      },
+      "type": "object"
+    },
     "llmoperator.batch.server.v1.BatchJob": {
       "properties": {
         "clusterId": {
@@ -85,44 +2248,6 @@
       },
       "type": "object"
     },
-    "llmoperator.batch.server.v1.CreateBatchJobRequest": {
-      "properties": {
-        "command": {
-          "type": "string"
-        },
-        "dataFiles": {
-          "description": "data_files is a list of file IDs that will be downloaded to the container.",
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "envs": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "type": "object"
-        },
-        "image": {
-          "type": "string"
-        },
-        "kind": {
-          "$ref": "#/definitions/llmoperator.batch.server.v1.BatchJobKind"
-        },
-        "resources": {
-          "$ref": "#/definitions/llmoperator.batch.server.v1.BatchJobResources"
-        },
-        "scripts": {
-          "additionalProperties": {
-            "format": "byte",
-            "type": "string"
-          },
-          "description": "scripts is a map of script names to script contents.\nThe total size of the scripts should not exceed 1MB.",
-          "type": "object"
-        }
-      },
-      "type": "object"
-    },
     "llmoperator.batch.server.v1.InternalBatchJob": {
       "properties": {
         "job": {
@@ -154,20 +2279,6 @@
         "DELETED"
       ],
       "type": "string"
-    },
-    "llmoperator.batch.server.v1.ListBatchJobsResponse": {
-      "properties": {
-        "hasMore": {
-          "type": "boolean"
-        },
-        "jobs": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.batch.server.v1.BatchJob"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
     },
     "llmoperator.batch.server.v1.ListQueuedInternalBatchJobsResponse": {
       "properties": {
@@ -210,24 +2321,6 @@
       },
       "type": "object"
     },
-    "llmoperator.chat.server.v1.rpcStatus": {
-      "properties": {
-        "code": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "details": {
-          "items": {
-            "$ref": "#/definitions/protobufAny"
-          },
-          "type": "array"
-        },
-        "message": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "llmoperator.clusters.server.v1.Cluster": {
       "properties": {
         "id": {
@@ -246,48 +2339,12 @@
       },
       "type": "object"
     },
-    "llmoperator.clusters.server.v1.CreateClusterRequest": {
-      "properties": {
-        "name": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.clusters.server.v1.DeleteClusterResponse": {
-      "properties": {
-        "deleted": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "llmoperator.clusters.server.v1.InternalCluster": {
       "properties": {
         "cluster": {
           "$ref": "#/definitions/llmoperator.clusters.server.v1.Cluster"
         },
         "tenantId": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.clusters.server.v1.ListClustersResponse": {
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.clusters.server.v1.Cluster"
-          },
-          "type": "array"
-        },
-        "object": {
           "type": "string"
         }
       },
@@ -322,83 +2379,12 @@
       },
       "type": "object"
     },
-    "llmoperator.embeddings.server.v1.rpcStatus": {
-      "properties": {
-        "code": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "details": {
-          "items": {
-            "$ref": "#/definitions/protobufAny"
-          },
-          "type": "array"
-        },
-        "message": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.files.server.v1.DeleteFileResponse": {
-      "properties": {
-        "deleted": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.files.server.v1.File": {
-      "properties": {
-        "bytes": {
-          "format": "int64",
-          "type": "string"
-        },
-        "createdAt": {
-          "format": "int64",
-          "type": "string"
-        },
-        "filename": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        },
-        "purpose": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "llmoperator.files.server.v1.GetFilePathResponse": {
       "properties": {
         "filename": {
           "type": "string"
         },
         "path": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.files.server.v1.ListFilesResponse": {
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.files.server.v1.File"
-          },
-          "type": "array"
-        },
-        "object": {
           "type": "string"
         }
       },
@@ -418,57 +2404,6 @@
         },
         "message": {
           "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.fine_tuning.server.v1.CreateJobRequest": {
-      "properties": {
-        "hyperparameters": {
-          "$ref": "#/definitions/llmoperator.fine_tuning.server.v1.CreateJobRequestHyperparameters"
-        },
-        "integrations": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.fine_tuning.server.v1.Integration"
-          },
-          "type": "array"
-        },
-        "model": {
-          "type": "string"
-        },
-        "seed": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "suffix": {
-          "description": "A string of up to 18 characters that will be added to your fine-tuned model name.\n\nFor example, a suffix of \"custom-model-name\" would produce a\nmodel name like\nft:gpt-3.5-turbo:openai:custom-model-name:7p4lURel.",
-          "type": "string"
-        },
-        "trainingFile": {
-          "type": "string"
-        },
-        "validationFile": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.fine_tuning.server.v1.CreateJobRequestHyperparameters": {
-      "properties": {
-        "batchSize": {
-          "description": "Note: OpenAI API supports string or interger.",
-          "format": "int32",
-          "type": "integer"
-        },
-        "learningRateMultiplier": {
-          "description": "Note: OpenAI API supports string or number.",
-          "format": "double",
-          "type": "number"
-        },
-        "nEpochs": {
-          "description": "Note: OpenAI API supports string or interger.",
-          "format": "int32",
-          "type": "integer"
         }
       },
       "type": "object"
@@ -648,23 +2583,6 @@
           "description": "Note: OpenAI API supports string or interger.",
           "format": "int32",
           "type": "integer"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.fine_tuning.server.v1.ListJobsResponse": {
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.fine_tuning.server.v1.Job"
-          },
-          "type": "array"
-        },
-        "hasMore": {
-          "type": "boolean"
-        },
-        "object": {
-          "type": "string"
         }
       },
       "type": "object"
@@ -1072,25 +2990,20 @@
       },
       "type": "object"
     },
+    "llmoperator.models.server.v1.AdapterType": {
+      "default": "ADAPTER_TYPE_UNSPECIFIED",
+      "enum": [
+        "ADAPTER_TYPE_UNSPECIFIED",
+        "ADAPTER_TYPE_LORA",
+        "ADAPTER_TYPE_QLORA"
+      ],
+      "type": "string"
+    },
     "llmoperator.models.server.v1.BaseModel": {
       "properties": {
         "created": {
           "format": "int64",
           "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.models.server.v1.DeleteModelResponse": {
-      "properties": {
-        "deleted": {
-          "type": "boolean"
         },
         "id": {
           "type": "string"
@@ -1120,36 +3033,9 @@
       "type": "object"
     },
     "llmoperator.models.server.v1.GetModelPathResponse": {
+      "description": "GetModelPathResponse is deprecated, use GetModelAttributesResponse instead.",
       "properties": {
         "path": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.models.server.v1.ListBaseModelsResponse": {
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.models.server.v1.BaseModel"
-          },
-          "type": "array"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.models.server.v1.ListModelsResponse": {
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.models.server.v1.Model"
-          },
-          "type": "array"
-        },
-        "object": {
           "type": "string"
         }
       },
@@ -1173,6 +3059,23 @@
       },
       "type": "object"
     },
+    "llmoperator.models.server.v1.ModelAttributes": {
+      "properties": {
+        "adapter": {
+          "$ref": "#/definitions/llmoperator.models.server.v1.AdapterType"
+        },
+        "baseModel": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "quantization": {
+          "$ref": "#/definitions/llmoperator.models.server.v1.QuantizationType"
+        }
+      },
+      "type": "object"
+    },
     "llmoperator.models.server.v1.ModelFormat": {
       "default": "MODEL_FORMAT_UNSPECIFIED",
       "enum": [
@@ -1184,6 +3087,15 @@
     },
     "llmoperator.models.server.v1.PublishModelResponse": {
       "type": "object"
+    },
+    "llmoperator.models.server.v1.QuantizationType": {
+      "default": "QUANTIZATION_TYPE_UNSPECIFIED",
+      "enum": [
+        "QUANTIZATION_TYPE_UNSPECIFIED",
+        "QUANTIZATION_TYPE_GGUF",
+        "QUANTIZATION_TYPE_AWQ"
+      ],
+      "type": "string"
     },
     "llmoperator.models.server.v1.RegisterModelResponse": {
       "properties": {
@@ -1223,727 +3135,6 @@
       },
       "type": "object"
     },
-    "llmoperator.rbac.server.v1.AuthorizeResponse": {
-      "properties": {
-        "authorized": {
-          "type": "boolean"
-        },
-        "organization": {
-          "$ref": "#/definitions/llmoperator.rbac.server.v1.Organization"
-        },
-        "project": {
-          "$ref": "#/definitions/llmoperator.rbac.server.v1.Project"
-        },
-        "tenantId": {
-          "type": "string"
-        },
-        "user": {
-          "$ref": "#/definitions/llmoperator.rbac.server.v1.User"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.AuthorizeWorkerResponse": {
-      "properties": {
-        "authorized": {
-          "type": "boolean"
-        },
-        "cluster": {
-          "$ref": "#/definitions/llmoperator.rbac.server.v1.Cluster"
-        },
-        "tenantId": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.Cluster": {
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.Organization": {
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.Project": {
-      "properties": {
-        "assignedKubernetesEnvs": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.rbac.server.v1.ProjectAssignedKubernetesEnv"
-          },
-          "type": "array"
-        },
-        "id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.ProjectAssignedKubernetesEnv": {
-      "properties": {
-        "clusterId": {
-          "type": "string"
-        },
-        "namespace": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.User": {
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.rbac.server.v1.rpcStatus": {
-      "properties": {
-        "code": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "details": {
-          "items": {
-            "$ref": "#/definitions/protobufAny"
-          },
-          "type": "array"
-        },
-        "message": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.APIKey": {
-      "properties": {
-        "createdAt": {
-          "format": "int64",
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        },
-        "organization": {
-          "$ref": "#/definitions/llmoperator.users.server.v1.Organization"
-        },
-        "project": {
-          "$ref": "#/definitions/llmoperator.users.server.v1.Project"
-        },
-        "secret": {
-          "description": "secret is populated only when a new API key is created.",
-          "type": "string"
-        },
-        "user": {
-          "$ref": "#/definitions/llmoperator.users.server.v1.User"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.CreateOrganizationRequest": {
-      "properties": {
-        "title": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.DeleteAPIKeyResponse": {
-      "properties": {
-        "deleted": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.DeleteOrganizationResponse": {
-      "properties": {
-        "deleted": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.DeleteProjectResponse": {
-      "properties": {
-        "deleted": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.InternalAPIKey": {
-      "properties": {
-        "apiKey": {
-          "$ref": "#/definitions/llmoperator.users.server.v1.APIKey"
-        },
-        "tenantId": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.InternalOrganization": {
-      "properties": {
-        "organization": {
-          "$ref": "#/definitions/llmoperator.users.server.v1.Organization"
-        },
-        "tenantId": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.ListAPIKeysResponse": {
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.users.server.v1.APIKey"
-          },
-          "type": "array"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.ListInternalAPIKeysResponse": {
-      "properties": {
-        "apiKeys": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.users.server.v1.InternalAPIKey"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.ListInternalOrganizationsResponse": {
-      "properties": {
-        "organizations": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.users.server.v1.InternalOrganization"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.ListOrganizationUsersResponse": {
-      "properties": {
-        "users": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.users.server.v1.OrganizationUser"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.ListOrganizationsResponse": {
-      "properties": {
-        "organizations": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.users.server.v1.Organization"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.ListProjectUsersResponse": {
-      "properties": {
-        "users": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.users.server.v1.ProjectUser"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.ListProjectsResponse": {
-      "properties": {
-        "projects": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.users.server.v1.Project"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.Organization": {
-      "properties": {
-        "createdAt": {
-          "format": "int64",
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.OrganizationRole": {
-      "default": "ORGANIZATION_ROLE_UNSPECIFIED",
-      "enum": [
-        "ORGANIZATION_ROLE_UNSPECIFIED",
-        "ORGANIZATION_ROLE_OWNER",
-        "ORGANIZATION_ROLE_READER"
-      ],
-      "type": "string"
-    },
-    "llmoperator.users.server.v1.OrganizationUser": {
-      "properties": {
-        "organizationId": {
-          "type": "string"
-        },
-        "role": {
-          "$ref": "#/definitions/llmoperator.users.server.v1.OrganizationRole"
-        },
-        "userId": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.Project": {
-      "properties": {
-        "createdAt": {
-          "format": "int64",
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "kubernetesNamespace": {
-          "description": "kubernetes_namespace is the namespace where the fine-tuning jobs for the project run.",
-          "type": "string"
-        },
-        "organizationId": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.ProjectRole": {
-      "default": "PROJECT_ROLE_UNSPECIFIED",
-      "enum": [
-        "PROJECT_ROLE_UNSPECIFIED",
-        "PROJECT_ROLE_OWNER",
-        "PROJECT_ROLE_MEMBER"
-      ],
-      "type": "string"
-    },
-    "llmoperator.users.server.v1.ProjectUser": {
-      "properties": {
-        "organizationId": {
-          "type": "string"
-        },
-        "projectId": {
-          "type": "string"
-        },
-        "role": {
-          "$ref": "#/definitions/llmoperator.users.server.v1.ProjectRole"
-        },
-        "userId": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.User": {
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.users.server.v1.rpcStatus": {
-      "properties": {
-        "code": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "details": {
-          "items": {
-            "$ref": "#/definitions/protobufAny"
-          },
-          "type": "array"
-        },
-        "message": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.vector_store.v1.ChunkingStrategy": {
-      "properties": {
-        "static": {
-          "$ref": "#/definitions/llmoperator.vector_store.v1.ChunkingStrategyStatic"
-        },
-        "type": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.vector_store.v1.ChunkingStrategyStatic": {
-      "properties": {
-        "chunkOverlapTokens": {
-          "format": "int64",
-          "type": "string"
-        },
-        "maxChunkSizeTokens": {
-          "format": "int64",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.vector_store.v1.CreateVectorStoreRequest": {
-      "properties": {
-        "chunkingStrategy": {
-          "$ref": "#/definitions/llmoperator.vector_store.v1.ChunkingStrategy"
-        },
-        "expiresAfter": {
-          "$ref": "#/definitions/llmoperator.vector_store.v1.ExpiresAfter"
-        },
-        "fileIds": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "metadata": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "type": "object"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.vector_store.v1.DeleteVectorStoreFileResponse": {
-      "properties": {
-        "deleted": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.vector_store.v1.DeleteVectorStoreResponse": {
-      "properties": {
-        "deleted": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.vector_store.v1.ExpiresAfter": {
-      "properties": {
-        "anchor": {
-          "description": "Anchor timestamp after which the expiration policy applies. Supported anchors: last_active_at.",
-          "type": "string"
-        },
-        "days": {
-          "description": "The number of days after the anchor time that the vector store will expire.",
-          "format": "int64",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.vector_store.v1.ListVectorStoreFilesResponse": {
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.vector_store.v1.VectorStoreFile"
-          },
-          "type": "array"
-        },
-        "firstId": {
-          "type": "string"
-        },
-        "hasMore": {
-          "type": "boolean"
-        },
-        "lastId": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.vector_store.v1.ListVectorStoresResponse": {
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.vector_store.v1.VectorStore"
-          },
-          "type": "array"
-        },
-        "firstId": {
-          "type": "string"
-        },
-        "hasMore": {
-          "type": "boolean"
-        },
-        "lastId": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.vector_store.v1.SearchVectorStoreResponse": {
-      "properties": {
-        "documents": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.vector_store.v1.VectorStore": {
-      "properties": {
-        "createdAt": {
-          "description": "The Unix timestamp (in seconds) for when the vector store was created.",
-          "format": "int64",
-          "type": "string"
-        },
-        "expiresAfter": {
-          "$ref": "#/definitions/llmoperator.vector_store.v1.ExpiresAfter"
-        },
-        "expiresAt": {
-          "description": "integer or null. The Unix timestamp (in seconds) for when the vector store will expire.",
-          "format": "int64",
-          "type": "string"
-        },
-        "fileCounts": {
-          "$ref": "#/definitions/llmoperator.vector_store.v1.VectorStoreFileCounts"
-        },
-        "id": {
-          "type": "string"
-        },
-        "lastActiveAt": {
-          "description": "integer or null. The Unix timestamp (in seconds) for when the vector store was last active.",
-          "format": "int64",
-          "type": "string"
-        },
-        "metadata": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "type": "object"
-        },
-        "name": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        },
-        "status": {
-          "description": "The status of the vector store, which can be either expired, in_progress, or completed.\nA status of completed indicates that the vector store is ready for use.",
-          "type": "string"
-        },
-        "usageBytes": {
-          "description": "The total number of bytes used by the files in the vector store.",
-          "format": "int64",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.vector_store.v1.VectorStoreFile": {
-      "properties": {
-        "chunkingStrategy": {
-          "$ref": "#/definitions/llmoperator.vector_store.v1.ChunkingStrategy"
-        },
-        "createdAt": {
-          "description": "The Unix timestamp (in seconds) for when the vector store file was created.",
-          "format": "int64",
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "lastError": {
-          "$ref": "#/definitions/llmoperator.vector_store.v1.VectorStoreFileError",
-          "description": "Error or null."
-        },
-        "object": {
-          "type": "string"
-        },
-        "status": {
-          "description": "The status of the vector store file, which can be either in_progress, completed, cancelled, or failed.\nThe status completed indicates that the vector store file is ready for use.",
-          "type": "string"
-        },
-        "usageBytes": {
-          "description": "The total vector store usage in bytes. Note that this may be different from the original file size.",
-          "format": "int64",
-          "type": "string"
-        },
-        "vectorStoreId": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.vector_store.v1.VectorStoreFileCounts": {
-      "properties": {
-        "cancelled": {
-          "format": "int64",
-          "type": "string"
-        },
-        "completed": {
-          "format": "int64",
-          "type": "string"
-        },
-        "failed": {
-          "format": "int64",
-          "type": "string"
-        },
-        "inProgress": {
-          "format": "int64",
-          "type": "string"
-        },
-        "total": {
-          "format": "int64",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.vector_store.v1.VectorStoreFileError": {
-      "properties": {
-        "code": {
-          "description": "One of server_error or rate_limit_exceeded.",
-          "type": "string"
-        },
-        "message": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.vector_store.v1.rpcStatus": {
-      "properties": {
-        "code": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "details": {
-          "items": {
-            "$ref": "#/definitions/protobufAny"
-          },
-          "type": "array"
-        },
-        "message": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.workspace.server.v1.CreateNotebookRequest": {
-      "properties": {
-        "envs": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "type": "object"
-        },
-        "image": {
-          "$ref": "#/definitions/llmoperator.workspace.server.v1.CreateNotebookRequestImage"
-        },
-        "name": {
-          "type": "string"
-        },
-        "resources": {
-          "$ref": "#/definitions/llmoperator.workspace.server.v1.serverv1Resources"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.workspace.server.v1.CreateNotebookRequestImage": {
-      "properties": {
-        "type": {
-          "description": "Type of preset images.",
-          "type": "string"
-        },
-        "uri": {
-          "description": "URI to the custom container image.",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.workspace.server.v1.DeleteNotebookResponse": {
-      "type": "object"
-    },
     "llmoperator.workspace.server.v1.InternalNotebook": {
       "properties": {
         "notebook": {
@@ -1954,20 +3145,6 @@
         },
         "state": {
           "$ref": "#/definitions/llmoperator.workspace.server.v1.NotebookState"
-        }
-      },
-      "type": "object"
-    },
-    "llmoperator.workspace.server.v1.ListNotebooksResponse": {
-      "properties": {
-        "hasMore": {
-          "type": "boolean"
-        },
-        "notebooks": {
-          "items": {
-            "$ref": "#/definitions/llmoperator.workspace.server.v1.Notebook"
-          },
-          "type": "array"
         }
       },
       "type": "object"
@@ -2130,7 +3307,7 @@
     }
   },
   "info": {
-    "title": "llm-operator APIs",
+    "title": "llmariner APIs",
     "version": "v1.0"
   },
   "paths": {
@@ -2141,13 +3318,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.models.server.v1.ListBaseModelsResponse"
+              "$ref": "#/definitions/llmariner.models.server.v1.ListBaseModelsResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.models.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.models.server.v1.rpcStatus"
             }
           }
         },
@@ -2179,13 +3356,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.batch.server.v1.ListBatchJobsResponse"
+              "$ref": "#/definitions/llmariner.batch.server.v1.ListBatchJobsResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.batch.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.batch.server.v1.rpcStatus"
             }
           }
         },
@@ -2199,7 +3376,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/llmoperator.batch.server.v1.CreateBatchJobRequest"
+              "$ref": "#/definitions/llmariner.batch.server.v1.CreateBatchJobRequest"
             }
           }
         ],
@@ -2207,13 +3384,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.batch.server.v1.BatchJob"
+              "$ref": "#/definitions/llmariner.batch.server.v1.BatchJob"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.batch.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.batch.server.v1.rpcStatus"
             }
           }
         },
@@ -2235,13 +3412,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.batch.server.v1.BatchJob"
+              "$ref": "#/definitions/llmariner.batch.server.v1.BatchJob"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.batch.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.batch.server.v1.rpcStatus"
             }
           }
         },
@@ -2261,13 +3438,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.batch.server.v1.BatchJob"
+              "$ref": "#/definitions/llmariner.batch.server.v1.BatchJob"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.batch.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.batch.server.v1.rpcStatus"
             }
           }
         },
@@ -2289,13 +3466,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.batch.server.v1.BatchJob"
+              "$ref": "#/definitions/llmariner.batch.server.v1.BatchJob"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.batch.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.batch.server.v1.rpcStatus"
             }
           }
         },
@@ -2309,13 +3486,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.clusters.server.v1.ListClustersResponse"
+              "$ref": "#/definitions/llmariner.clusters.server.v1.ListClustersResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.clusters.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.clusters.server.v1.rpcStatus"
             }
           }
         },
@@ -2329,7 +3506,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/llmoperator.clusters.server.v1.CreateClusterRequest"
+              "$ref": "#/definitions/llmariner.clusters.server.v1.CreateClusterRequest"
             }
           }
         ],
@@ -2337,13 +3514,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.clusters.server.v1.Cluster"
+              "$ref": "#/definitions/llmariner.clusters.server.v1.Cluster"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.clusters.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.clusters.server.v1.rpcStatus"
             }
           }
         },
@@ -2365,13 +3542,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.clusters.server.v1.DeleteClusterResponse"
+              "$ref": "#/definitions/llmariner.clusters.server.v1.DeleteClusterResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.clusters.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.clusters.server.v1.rpcStatus"
             }
           }
         },
@@ -2391,13 +3568,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.clusters.server.v1.Cluster"
+              "$ref": "#/definitions/llmariner.clusters.server.v1.Cluster"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.clusters.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.clusters.server.v1.rpcStatus"
             }
           }
         },
@@ -2419,13 +3596,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.files.server.v1.ListFilesResponse"
+              "$ref": "#/definitions/llmariner.files.server.v1.ListFilesResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.files.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.files.server.v1.rpcStatus"
             }
           }
         },
@@ -2447,13 +3624,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.files.server.v1.DeleteFileResponse"
+              "$ref": "#/definitions/llmariner.files.server.v1.DeleteFileResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.files.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.files.server.v1.rpcStatus"
             }
           }
         },
@@ -2473,13 +3650,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.files.server.v1.File"
+              "$ref": "#/definitions/llmariner.files.server.v1.File"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.files.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.files.server.v1.rpcStatus"
             }
           }
         },
@@ -2510,13 +3687,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.fine_tuning.server.v1.ListJobsResponse"
+              "$ref": "#/definitions/llmariner.fine_tuning.server.v1.ListJobsResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.fine_tuning.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.fine_tuning.server.v1.rpcStatus"
             }
           }
         },
@@ -2530,7 +3707,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/llmoperator.fine_tuning.server.v1.CreateJobRequest"
+              "$ref": "#/definitions/llmariner.fine_tuning.server.v1.CreateJobRequest"
             }
           }
         ],
@@ -2538,13 +3715,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.fine_tuning.server.v1.Job"
+              "$ref": "#/definitions/llmariner.fine_tuning.server.v1.Job"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.fine_tuning.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.fine_tuning.server.v1.rpcStatus"
             }
           }
         },
@@ -2566,13 +3743,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.fine_tuning.server.v1.Job"
+              "$ref": "#/definitions/llmariner.fine_tuning.server.v1.Job"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.fine_tuning.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.fine_tuning.server.v1.rpcStatus"
             }
           }
         },
@@ -2594,13 +3771,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.fine_tuning.server.v1.Job"
+              "$ref": "#/definitions/llmariner.fine_tuning.server.v1.Job"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.fine_tuning.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.fine_tuning.server.v1.rpcStatus"
             }
           }
         },
@@ -2614,13 +3791,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.models.server.v1.ListModelsResponse"
+              "$ref": "#/definitions/llmariner.models.server.v1.ListModelsResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.models.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.models.server.v1.rpcStatus"
             }
           }
         },
@@ -2642,13 +3819,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.models.server.v1.DeleteModelResponse"
+              "$ref": "#/definitions/llmariner.models.server.v1.DeleteModelResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.models.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.models.server.v1.rpcStatus"
             }
           }
         },
@@ -2668,13 +3845,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.models.server.v1.Model"
+              "$ref": "#/definitions/llmariner.models.server.v1.Model"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.models.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.models.server.v1.rpcStatus"
             }
           }
         },
@@ -2688,13 +3865,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.ListOrganizationsResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.ListOrganizationsResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2708,7 +3885,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.CreateOrganizationRequest"
+              "$ref": "#/definitions/llmariner.users.server.v1.CreateOrganizationRequest"
             }
           }
         ],
@@ -2716,13 +3893,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.Organization"
+              "$ref": "#/definitions/llmariner.users.server.v1.Organization"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2744,13 +3921,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.DeleteOrganizationResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.DeleteOrganizationResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2772,13 +3949,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.ListProjectsResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.ListProjectsResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2814,13 +3991,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.Project"
+              "$ref": "#/definitions/llmariner.users.server.v1.Project"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2848,13 +4025,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.DeleteProjectResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.DeleteProjectResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2882,13 +4059,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.ListAPIKeysResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.ListAPIKeysResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2927,13 +4104,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.APIKey"
+              "$ref": "#/definitions/llmariner.users.server.v1.APIKey"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -2967,13 +4144,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.DeleteAPIKeyResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.DeleteAPIKeyResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -3002,13 +4179,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.ListProjectUsersResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.ListProjectUsersResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -3036,7 +4213,7 @@
             "schema": {
               "properties": {
                 "role": {
-                  "$ref": "#/definitions/llmoperator.users.server.v1.ProjectRole"
+                  "$ref": "#/definitions/llmariner.users.server.v1.ProjectRole"
                 },
                 "userId": {
                   "type": "string"
@@ -3050,13 +4227,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.ProjectUser"
+              "$ref": "#/definitions/llmariner.users.server.v1.ProjectUser"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -3096,7 +4273,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -3119,13 +4296,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.ListOrganizationUsersResponse"
+              "$ref": "#/definitions/llmariner.users.server.v1.ListOrganizationUsersResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -3147,7 +4324,7 @@
             "schema": {
               "properties": {
                 "role": {
-                  "$ref": "#/definitions/llmoperator.users.server.v1.OrganizationRole"
+                  "$ref": "#/definitions/llmariner.users.server.v1.OrganizationRole"
                 },
                 "userId": {
                   "type": "string"
@@ -3161,13 +4338,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.OrganizationUser"
+              "$ref": "#/definitions/llmariner.users.server.v1.OrganizationUser"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -3201,7 +4378,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.users.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.users.server.v1.rpcStatus"
             }
           }
         },
@@ -3242,13 +4419,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.ListVectorStoresResponse"
+              "$ref": "#/definitions/llmariner.vector_store.v1.ListVectorStoresResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.vector_store.v1.rpcStatus"
             }
           }
         },
@@ -3262,7 +4439,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.CreateVectorStoreRequest"
+              "$ref": "#/definitions/llmariner.vector_store.v1.CreateVectorStoreRequest"
             }
           }
         ],
@@ -3270,13 +4447,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.VectorStore"
+              "$ref": "#/definitions/llmariner.vector_store.v1.VectorStore"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.vector_store.v1.rpcStatus"
             }
           }
         },
@@ -3298,13 +4475,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.DeleteVectorStoreResponse"
+              "$ref": "#/definitions/llmariner.vector_store.v1.DeleteVectorStoreResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.vector_store.v1.rpcStatus"
             }
           }
         },
@@ -3324,13 +4501,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.VectorStore"
+              "$ref": "#/definitions/llmariner.vector_store.v1.VectorStore"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.vector_store.v1.rpcStatus"
             }
           }
         },
@@ -3352,7 +4529,7 @@
             "schema": {
               "properties": {
                 "expiresAfter": {
-                  "$ref": "#/definitions/llmoperator.vector_store.v1.ExpiresAfter"
+                  "$ref": "#/definitions/llmariner.vector_store.v1.ExpiresAfter"
                 },
                 "metadata": {
                   "additionalProperties": {
@@ -3373,13 +4550,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.VectorStore"
+              "$ref": "#/definitions/llmariner.vector_store.v1.VectorStore"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.vector_store.v1.rpcStatus"
             }
           }
         },
@@ -3433,13 +4610,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.ListVectorStoreFilesResponse"
+              "$ref": "#/definitions/llmariner.vector_store.v1.ListVectorStoreFilesResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.vector_store.v1.rpcStatus"
             }
           }
         },
@@ -3461,7 +4638,7 @@
             "schema": {
               "properties": {
                 "chunkingStrategy": {
-                  "$ref": "#/definitions/llmoperator.vector_store.v1.ChunkingStrategy"
+                  "$ref": "#/definitions/llmariner.vector_store.v1.ChunkingStrategy"
                 },
                 "fileId": {
                   "type": "string"
@@ -3475,13 +4652,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.VectorStoreFile"
+              "$ref": "#/definitions/llmariner.vector_store.v1.VectorStoreFile"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.vector_store.v1.rpcStatus"
             }
           }
         },
@@ -3509,13 +4686,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.DeleteVectorStoreFileResponse"
+              "$ref": "#/definitions/llmariner.vector_store.v1.DeleteVectorStoreFileResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.vector_store.v1.rpcStatus"
             }
           }
         },
@@ -3541,13 +4718,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.VectorStoreFile"
+              "$ref": "#/definitions/llmariner.vector_store.v1.VectorStoreFile"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.vector_store.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.vector_store.v1.rpcStatus"
             }
           }
         },
@@ -3578,13 +4755,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.workspace.server.v1.ListNotebooksResponse"
+              "$ref": "#/definitions/llmariner.workspace.server.v1.ListNotebooksResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.workspace.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.workspace.server.v1.rpcStatus"
             }
           }
         },
@@ -3598,7 +4775,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/llmoperator.workspace.server.v1.CreateNotebookRequest"
+              "$ref": "#/definitions/llmariner.workspace.server.v1.CreateNotebookRequest"
             }
           }
         ],
@@ -3606,13 +4783,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.workspace.server.v1.Notebook"
+              "$ref": "#/definitions/llmariner.workspace.server.v1.Notebook"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.workspace.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.workspace.server.v1.rpcStatus"
             }
           }
         },
@@ -3634,13 +4811,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.workspace.server.v1.DeleteNotebookResponse"
+              "$ref": "#/definitions/llmariner.workspace.server.v1.DeleteNotebookResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.workspace.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.workspace.server.v1.rpcStatus"
             }
           }
         },
@@ -3660,13 +4837,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.workspace.server.v1.Notebook"
+              "$ref": "#/definitions/llmariner.workspace.server.v1.Notebook"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.workspace.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.workspace.server.v1.rpcStatus"
             }
           }
         },
@@ -3688,13 +4865,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.workspace.server.v1.Notebook"
+              "$ref": "#/definitions/llmariner.workspace.server.v1.Notebook"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.workspace.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.workspace.server.v1.rpcStatus"
             }
           }
         },
@@ -3716,13 +4893,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.workspace.server.v1.Notebook"
+              "$ref": "#/definitions/llmariner.workspace.server.v1.Notebook"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/llmoperator.workspace.server.v1.rpcStatus"
+              "$ref": "#/definitions/llmariner.workspace.server.v1.rpcStatus"
             }
           }
         },
