@@ -1381,8 +1381,14 @@
         "organization": {
           "$ref": "#/definitions/llmariner.users.server.v1.Organization"
         },
+        "organizationRole": {
+          "$ref": "#/definitions/llmariner.users.server.v1.OrganizationRole"
+        },
         "project": {
           "$ref": "#/definitions/llmariner.users.server.v1.Project"
+        },
+        "projectRole": {
+          "$ref": "#/definitions/llmariner.users.server.v1.ProjectRole"
         },
         "secret": {
           "description": "secret is populated only when a new API key is created.",
@@ -1573,6 +1579,7 @@
     "llmariner.users.server.v1.OrganizationUser": {
       "properties": {
         "internalUserId": {
+          "description": "internal_user_id is populated only for internal gRPC service.",
           "type": "string"
         },
         "organizationId": {
@@ -1641,6 +1648,7 @@
           "type": "string"
         },
         "internalId": {
+          "description": "internal_id is populated only for internal gRPC service.",
           "type": "string"
         }
       },
