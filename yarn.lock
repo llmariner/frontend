@@ -26,9 +26,9 @@
   version "1.0.0"
   resolved "git+ssh://git@github.com/llmariner/rbac-manager.git#58d4d3116248f198477a7c56cb2e85c4691dc97b"
 
-"@llmariner-types/user-manager@git+ssh://git@github.com/llmariner/user-manager.git#v0.91.0":
+"@llmariner-types/user-manager@git+ssh://git@github.com/llmariner/user-manager.git#v0.96.0":
   version "1.0.0"
-  resolved "git+ssh://git@github.com/llmariner/user-manager.git#e42cbffe7ea78aeca7a6c5fe4c73959a613dc9bc"
+  resolved "git+ssh://git@github.com/llmariner/user-manager.git#a17186f9ec9d80d353eb669d392b7bbda1bdf51b"
 
 "@llmariner-types/vector-store-manager@git+ssh://git@github.com/llmariner/vector-store-manager.git#v0.53.0":
   version "1.0.0"
