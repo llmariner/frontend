@@ -769,6 +769,9 @@
         "stream": {
           "type": "boolean"
         },
+        "streamOptions": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.CreateChatCompletionRequestStreamOptions"
+        },
         "temperature": {
           "format": "double",
           "type": "number"
@@ -847,6 +850,14 @@
       "properties": {
         "type": {
           "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.CreateChatCompletionRequestStreamOptions": {
+      "properties": {
+        "includeUsage": {
+          "type": "boolean"
         }
       },
       "type": "object"
@@ -2695,6 +2706,9 @@
         "stream": {
           "type": "boolean"
         },
+        "streamOptions": {
+          "$ref": "#/definitions/llmoperator.inference.server.v1.CreateChatCompletionRequestStreamOptions"
+        },
         "temperature": {
           "format": "double",
           "type": "number"
@@ -2773,6 +2787,14 @@
       "properties": {
         "type": {
           "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmoperator.inference.server.v1.CreateChatCompletionRequestStreamOptions": {
+      "properties": {
+        "includeUsage": {
+          "type": "boolean"
         }
       },
       "type": "object"
