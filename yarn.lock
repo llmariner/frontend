@@ -10,17 +10,17 @@
   version "1.0.0"
   resolved "git+ssh://git@github.com/llmariner/file-manager.git#50d82dfd61c54966d817dc2ea5afb6ca1dd92be1"
 
-"@llmariner-types/inference-manager@git+ssh://git@github.com/llmariner/inference-manager.git#v0.361.0":
+"@llmariner-types/inference-manager@git+ssh://git@github.com/llmariner/inference-manager.git#v0.369.0":
   version "1.0.0"
-  resolved "git+ssh://git@github.com/llmariner/inference-manager.git#4aaaed3a7ee6c41bcafefd30b6c53d00d3cfb1b8"
+  resolved "git+ssh://git@github.com/llmariner/inference-manager.git#f0e1db9d812cdfb87b9f8b926a531692e4835f53"
 
 "@llmariner-types/job-manager@git+ssh://git@github.com/llmariner/job-manager.git#v0.209.0":
   version "1.0.0"
   resolved "git+ssh://git@github.com/llmariner/job-manager.git#030bf6127d1eb08249bdfcb0aa3c6c2ae746731d"
 
-"@llmariner-types/model-manager@git+ssh://git@github.com/llmariner/model-manager.git#v0.113.0":
+"@llmariner-types/model-manager@git+ssh://git@github.com/llmariner/model-manager.git#v0.119.0":
   version "1.0.0"
-  resolved "git+ssh://git@github.com/llmariner/model-manager.git#72bcbf96edbab4a5fa1a52a46d7439472211fa08"
+  resolved "git+ssh://git@github.com/llmariner/model-manager.git#8126802bdb401cfd72485c58f76f1d5d095d5bff"
 
 "@llmariner-types/rbac-manager@git+ssh://git@github.com/llmariner/rbac-manager.git#v0.107.0":
   version "1.0.0"
