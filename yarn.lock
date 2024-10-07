@@ -22,9 +22,9 @@
   version "1.0.0"
   resolved "git+ssh://git@github.com/llmariner/model-manager.git#8126802bdb401cfd72485c58f76f1d5d095d5bff"
 
-"@llmariner-types/rbac-manager@git+ssh://git@github.com/llmariner/rbac-manager.git#v0.107.0":
+"@llmariner-types/rbac-manager@git+ssh://git@github.com/llmariner/rbac-manager.git#v0.113.0":
   version "1.0.0"
-  resolved "git+ssh://git@github.com/llmariner/rbac-manager.git#58d4d3116248f198477a7c56cb2e85c4691dc97b"
+  resolved "git+ssh://git@github.com/llmariner/rbac-manager.git#163c7a8d062fb1f133db2e1e98b7f8b2450e2a9c"
 
 "@llmariner-types/user-manager@git+ssh://git@github.com/llmariner/user-manager.git#v0.96.0":
   version "1.0.0"
