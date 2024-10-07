@@ -1272,6 +1272,10 @@
     },
     "llmariner.rbac.server.v1.AuthorizeResponse": {
       "properties": {
+        "apiKeyId": {
+          "description": "api_key_id is the id of the api key used to authorize the request. It is only set if the request was authorized using an api key.",
+          "type": "string"
+        },
         "authorized": {
           "type": "boolean"
         },
