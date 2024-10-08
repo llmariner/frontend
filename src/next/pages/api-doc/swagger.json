@@ -1213,10 +1213,12 @@
     },
     "llmariner.models.server.v1.ModelFormat": {
       "default": "MODEL_FORMAT_UNSPECIFIED",
+      "description": " - MODEL_FORMAT_NVIDIA_TRITON: Model format for Nvidia Triton Inference Server. This model files include the tokenizer configuration\nof the original model, compiled model files for TensorRT-LLM backend, and configuration files for\nTriton Inference Server.",
       "enum": [
         "MODEL_FORMAT_UNSPECIFIED",
         "MODEL_FORMAT_GGUF",
-        "MODEL_FORMAT_HUGGING_FACE"
+        "MODEL_FORMAT_HUGGING_FACE",
+        "MODEL_FORMAT_NVIDIA_TRITON"
       ],
       "type": "string"
     },
@@ -3112,10 +3114,12 @@
     },
     "llmoperator.models.server.v1.ModelFormat": {
       "default": "MODEL_FORMAT_UNSPECIFIED",
+      "description": " - MODEL_FORMAT_NVIDIA_TRITON: Model format for Nvidia Triton Inference Server. This model files include the tokenizer configuration\nof the original model, compiled model files for TensorRT-LLM backend, and configuration files for\nTriton Inference Server.",
       "enum": [
         "MODEL_FORMAT_UNSPECIFIED",
         "MODEL_FORMAT_GGUF",
-        "MODEL_FORMAT_HUGGING_FACE"
+        "MODEL_FORMAT_HUGGING_FACE",
+        "MODEL_FORMAT_NVIDIA_TRITON"
       ],
       "type": "string"
     },

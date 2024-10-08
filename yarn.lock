@@ -18,9 +18,9 @@
   version "1.0.0"
   resolved "git+ssh://git@github.com/llmariner/job-manager.git#030bf6127d1eb08249bdfcb0aa3c6c2ae746731d"
 
-"@llmariner-types/model-manager@git+ssh://git@github.com/llmariner/model-manager.git#v0.119.0":
+"@llmariner-types/model-manager@git+ssh://git@github.com/llmariner/model-manager.git#v0.122.0":
   version "1.0.0"
-  resolved "git+ssh://git@github.com/llmariner/model-manager.git#8126802bdb401cfd72485c58f76f1d5d095d5bff"
+  resolved "git+ssh://git@github.com/llmariner/model-manager.git#2b7130810222aacbb329d1cd08b1f58f7fc3a39d"
 
 "@llmariner-types/rbac-manager@git+ssh://git@github.com/llmariner/rbac-manager.git#v0.113.0":
   version "1.0.0"
