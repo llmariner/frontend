@@ -999,6 +999,17 @@
       },
       "type": "object"
     },
+    "llmariner.inference.server.v1.ProcessTasksInternalResponse": {
+      "properties": {
+        "newTask": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.Task"
+        },
+        "tenantId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "llmariner.inference.server.v1.ProcessTasksResponse": {
       "properties": {
         "newTask": {
@@ -1015,6 +1026,31 @@
         },
         "isLastEvent": {
           "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.ServerStatus": {
+      "properties": {
+        "engineStatuses": {
+          "items": {
+            "$ref": "#/definitions/llmariner.inference.server.v1.ServerStatusEngineStatusWithTenantID"
+          },
+          "type": "array"
+        },
+        "podName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "llmariner.inference.server.v1.ServerStatusEngineStatusWithTenantID": {
+      "properties": {
+        "engineStatus": {
+          "$ref": "#/definitions/llmariner.inference.server.v1.EngineStatus"
+        },
+        "tenantId": {
+          "type": "string"
         }
       },
       "type": "object"
