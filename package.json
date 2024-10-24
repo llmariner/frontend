@@ -20,7 +20,7 @@
   "devDependencies": {
     "@llmariner-types/cluster-manager": "git+ssh://git@github.com/llmariner/cluster-manager.git#v0.25.0",
     "@llmariner-types/file-manager": "git+ssh://git@github.com/llmariner/file-manager.git#v0.70.0",
-    "@llmariner-types/inference-manager": "git+ssh://git@github.com/llmariner/inference-manager.git#v0.369.0",
+    "@llmariner-types/inference-manager": "git+ssh://git@github.com/llmariner/inference-manager.git#v1.3.1",
     "@llmariner-types/job-manager": "git+ssh://git@github.com/llmariner/job-manager.git#v0.209.0",
     "@llmariner-types/model-manager": "git+ssh://git@github.com/llmariner/model-manager.git#v0.122.0",
     "@llmariner-types/rbac-manager": "git+ssh://git@github.com/llmariner/rbac-manager.git#v0.113.0",

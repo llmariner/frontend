@@ -10,9 +10,9 @@
   version "1.0.0"
   resolved "git+ssh://git@github.com/llmariner/file-manager.git#50d82dfd61c54966d817dc2ea5afb6ca1dd92be1"
 
-"@llmariner-types/inference-manager@git+ssh://git@github.com/llmariner/inference-manager.git#v0.369.0":
+"@llmariner-types/inference-manager@git+ssh://git@github.com/llmariner/inference-manager.git#v1.3.1":
   version "1.0.0"
-  resolved "git+ssh://git@github.com/llmariner/inference-manager.git#f0e1db9d812cdfb87b9f8b926a531692e4835f53"
+  resolved "git+ssh://git@github.com/llmariner/inference-manager.git#452258215d4a4688eb9840bae74033263f4edc23"
 
 "@llmariner-types/job-manager@git+ssh://git@github.com/llmariner/job-manager.git#v0.209.0":
   version "1.0.0"
